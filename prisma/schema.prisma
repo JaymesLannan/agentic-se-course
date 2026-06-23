@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Progress {
+  id          String    @id @default(cuid())
+  moduleId    String    @unique
+  status      String    @default("locked") // locked | available | completed
+  score       Int?
+  attempts    Int       @default(0)
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+  responses   TestResponse[]
+}
+
+model TestResponse {
+  id           String   @id @default(cuid())
+  progressId   String
+  progress     Progress @relation(fields: [progressId], references: [id])
+  questionId   String
+  questionType String   // conceptual | applied | hands_on | edge_case
+  userResponse String
+  feedback     String?
+  score        Int?
+  maxScore     Int
+  passed       Boolean?
+  createdAt    DateTime @default(now())
+}
