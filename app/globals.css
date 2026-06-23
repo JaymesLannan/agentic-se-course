@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
+  --background: #111827;
+  --surface: #1f2937;
+  --border: #374151;
+  --foreground: #f9fafb;
+  --muted: #9ca3af;
 }
 
 body {
@@ -11,21 +14,25 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.prose { color: #d4d4d8; }
-.prose h1 { color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
-.prose h2 { color: #fff; font-size: 1.4rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
-.prose h3 { color: #e4e4e7; font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-.prose p { margin-bottom: 1rem; line-height: 1.75; }
+/* Prose — module reading pages */
+.prose { color: #e5e7eb; line-height: 1.85; }
+.prose h1 { color: #f9fafb; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
+.prose h2 { color: #f9fafb; font-size: 1.35rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #374151; }
+.prose h3 { color: #f3f4f6; font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+.prose p { margin-bottom: 1.1rem; line-height: 1.85; }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
-.prose li { margin-bottom: 0.5rem; line-height: 1.75; }
-.prose strong { color: #fff; font-weight: 600; }
-.prose code { background: #18181b; color: #a78bfa; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.875rem; font-family: "Fira Code", monospace; }
-.prose pre { background: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin: 1.25rem 0; }
-.prose pre code { background: none; color: #e4e4e7; padding: 0; font-size: 0.85rem; }
-.prose table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; }
-.prose th { background: #18181b; color: #a78bfa; padding: 0.75rem 1rem; text-align: left; border: 1px solid #27272a; font-weight: 600; font-size: 0.875rem; }
-.prose td { padding: 0.75rem 1rem; border: 1px solid #27272a; font-size: 0.875rem; }
-.prose tr:nth-child(even) td { background: #18181b40; }
-.prose blockquote { border-left: 3px solid #7c3aed; padding-left: 1rem; margin: 1.25rem 0; color: #a1a1aa; font-style: italic; }
-.prose hr { border: none; border-top: 1px solid #27272a; margin: 2.5rem 0; }
+.prose li { margin-bottom: 0.5rem; line-height: 1.8; color: #e5e7eb; }
+.prose strong { color: #f9fafb; font-weight: 600; }
+.prose em { color: #f3f4f6; }
+.prose a { color: #38bdf8; text-decoration: underline; }
+.prose a:hover { color: #7dd3fc; }
+.prose code { background: #1f2937; color: #67e8f9; padding: 0.15rem 0.45rem; border-radius: 5px; font-size: 0.875rem; font-family: "Fira Code", "Cascadia Code", monospace; border: 1px solid #374151; }
+.prose pre { background: #0d1520; border: 1px solid #374151; border-radius: 10px; padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
+.prose pre code { background: none; color: #e5e7eb; padding: 0; font-size: 0.85rem; border: none; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+.prose th { background: #1f2937; color: #38bdf8; padding: 0.75rem 1rem; text-align: left; border: 1px solid #374151; font-weight: 600; }
+.prose td { padding: 0.75rem 1rem; border: 1px solid #374151; color: #e5e7eb; }
+.prose tr:nth-child(even) td { background: #1f293780; }
+.prose blockquote { border-left: 3px solid #38bdf8; padding: 0.75rem 1rem 0.75rem 1.25rem; margin: 1.5rem 0; background: #1f2937; border-radius: 0 8px 8px 0; color: #d1d5db; font-style: italic; }
+.prose hr { border: none; border-top: 1px solid #374151; margin: 2.5rem 0; }

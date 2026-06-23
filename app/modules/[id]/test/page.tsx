@@ -13,10 +13,10 @@ interface GradeResult {
 }
 
 const TYPE_LABELS: Record<string, { label: string; color: string; description: string }> = {
-  conceptual: { label: "Conceptual", color: "text-blue-400 border-blue-400/30 bg-blue-400/5", description: "Demonstrate deep understanding of the why" },
-  applied: { label: "Applied", color: "text-violet-400 border-violet-400/30 bg-violet-400/5", description: "Show judgment in a realistic scenario" },
-  hands_on: { label: "Hands-on", color: "text-emerald-400 border-emerald-400/30 bg-emerald-400/5", description: "Produce an actual artifact or deliverable" },
-  edge_case: { label: "Edge Case", color: "text-amber-400 border-amber-400/30 bg-amber-400/5", description: "Navigate unexpected situations and tradeoffs" },
+  conceptual: { label: "Conceptual", color: "text-blue-200 border-blue-400/40 bg-blue-500/15",    description: "Demonstrate deep understanding of the why" },
+  applied:    { label: "Applied",    color: "text-sky-200 border-sky-400/40 bg-sky-500/15",        description: "Show judgment in a realistic scenario" },
+  hands_on:   { label: "Hands-on",  color: "text-emerald-200 border-emerald-400/40 bg-emerald-500/15", description: "Produce an actual artifact or deliverable" },
+  edge_case:  { label: "Edge Case", color: "text-amber-200 border-amber-400/40 bg-amber-500/15",  description: "Navigate unexpected situations and tradeoffs" },
 };
 
 export default function TestPage() {
@@ -34,10 +34,10 @@ export default function TestPage() {
 
   if (!mod) {
     return (
-      <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
+      <div className="min-h-screen bg-[#111827] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-zinc-400 mb-4">Module not found</p>
-          <Link href="/" className="text-violet-400 hover:text-violet-300">← Back to home</Link>
+          <p className="text-gray-300 mb-4">Module not found</p>
+          <Link href="/" className="text-sky-300 hover:text-sky-200">← Back to home</Link>
         </div>
       </div>
     );
@@ -49,15 +49,10 @@ export default function TestPage() {
     setSubmitting(true);
     const results: Record<string, GradeResult> = {};
 
-    // Grade each question with loading state
     for (const question of mod!.questions) {
       const response = answers[question.id] ?? "";
       if (!response.trim()) {
-        results[question.id] = {
-          score: 0,
-          passed: false,
-          feedback: "No answer provided.",
-        };
+        results[question.id] = { score: 0, passed: false, feedback: "No answer provided." };
         setGrades((prev) => ({ ...prev, [question.id]: results[question.id] }));
         continue;
       }
@@ -79,7 +74,6 @@ export default function TestPage() {
       }
     }
 
-    // Calculate final score
     const totalEarned = Object.values(results).reduce((acc, r) => acc + (r.score ?? 0), 0);
     const pct = Math.round((totalEarned / totalMaxScore) * 100);
     const didPass = pct >= 80;
@@ -89,16 +83,11 @@ export default function TestPage() {
     setAllSubmitted(true);
     setSubmitting(false);
 
-    // Save progress
     setSavingProgress(true);
     await fetch("/api/progress", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        moduleId: id,
-        status: didPass ? "completed" : "available",
-        score: pct,
-      }),
+      body: JSON.stringify({ moduleId: id, status: didPass ? "completed" : "available", score: pct }),
     });
     setSavingProgress(false);
   }
@@ -107,21 +96,20 @@ export default function TestPage() {
   const allAnswered = answeredCount === mod.questions.length;
 
   return (
-    <div className="min-h-screen bg-[#09090b]">
-      {/* Header */}
-      <header className="border-b border-white/[0.06] bg-[#09090b]/80 backdrop-blur-xl sticky top-0 z-10">
+    <div className="min-h-screen bg-[#111827]">
+      <header className="border-b border-gray-700 bg-[#111827]/95 backdrop-blur-xl sticky top-0 z-10">
         <div className="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
-          <Link href={`/modules/${id}`} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors">
+          <Link href={`/modules/${id}`} className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
             <ArrowLeft className="h-4 w-4" />
             Back to module
           </Link>
           <div className="flex items-center gap-3 text-sm">
-            <span className="text-zinc-500">{answeredCount}/{mod.questions.length} answered</span>
+            <span className="text-gray-300">{answeredCount}/{mod.questions.length} answered</span>
             {!allSubmitted && (
               <button
                 onClick={submitAll}
                 disabled={submitting || !allAnswered}
-                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 disabled:cursor-not-allowed hover:from-violet-500 hover:to-indigo-500 transition-all duration-200"
+                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 disabled:cursor-not-allowed hover:from-sky-400 hover:to-blue-500 transition-all duration-200"
               >
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                 {submitting ? "Grading..." : "Submit all"}
@@ -132,16 +120,15 @@ export default function TestPage() {
       </header>
 
       <main className="mx-auto max-w-4xl px-6 py-10">
-        {/* Test header */}
         <div className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">{mod.trackName} · Module {mod.order}</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-sky-300 mb-2">{mod.trackName} · Module {mod.order}</p>
           <h1 className="text-2xl font-extrabold text-white mb-2">{mod.title} — Test</h1>
-          <p className="text-zinc-400 text-sm">{mod.questions.length} questions · Score 80%+ to advance · Claude grades every answer</p>
+          <p className="text-gray-300 text-sm">{mod.questions.length} questions · Score 80%+ to advance · Claude grades every answer</p>
         </div>
 
         {/* Result banner */}
         {allSubmitted && finalScore !== null && (
-          <div className={`rounded-2xl border p-6 mb-8 ${passed ? "border-emerald-500/30 bg-emerald-500/10" : "border-red-500/30 bg-red-500/10"}`}>
+          <div className={`rounded-2xl border p-6 mb-8 ${passed ? "border-emerald-500/40 bg-emerald-500/10" : "border-red-500/40 bg-red-500/10"}`}>
             <div className="flex items-center gap-4">
               <div className={`h-14 w-14 rounded-full flex items-center justify-center ${passed ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
                 {passed ? <Trophy className="h-7 w-7 text-emerald-400" /> : <XCircle className="h-7 w-7 text-red-400" />}
@@ -151,7 +138,7 @@ export default function TestPage() {
                 <p className={`font-semibold ${passed ? "text-emerald-300" : "text-red-300"}`}>
                   {passed ? "Passed — next module unlocked!" : `Not yet — need 80% (${80 - finalScore} more points)`}
                 </p>
-                {savingProgress && <p className="text-xs text-zinc-500 mt-1">Saving progress...</p>}
+                {savingProgress && <p className="text-xs text-gray-400 mt-1">Saving progress...</p>}
               </div>
               {passed ? (
                 <Link
@@ -168,7 +155,7 @@ export default function TestPage() {
                     setFinalScore(null);
                     setPassed(false);
                   }}
-                  className="flex items-center gap-2 rounded-xl bg-zinc-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-zinc-600 transition-colors"
+                  className="flex items-center gap-2 rounded-xl bg-gray-700 px-5 py-2.5 text-sm font-semibold text-gray-100 hover:bg-gray-600 transition-colors"
                 >
                   <RefreshCw className="h-4 w-4" />
                   Retry
@@ -181,7 +168,7 @@ export default function TestPage() {
         {/* Questions */}
         <div className="space-y-8">
           {mod.questions.map((q, i) => {
-            const typeInfo = TYPE_LABELS[q.type] ?? { label: q.type, color: "text-zinc-400 border-zinc-400/30 bg-zinc-400/5", description: "" };
+            const typeInfo = TYPE_LABELS[q.type] ?? { label: q.type, color: "text-gray-300 border-gray-500/40 bg-gray-500/10", description: "" };
             const grade = grades[q.id];
             const hasGrade = grade && !grade.loading;
 
@@ -189,25 +176,23 @@ export default function TestPage() {
               <div key={q.id} className={`rounded-2xl border transition-all duration-200 ${
                 hasGrade
                   ? grade.passed
-                    ? "border-emerald-500/20 bg-emerald-500/5"
-                    : "border-red-500/20 bg-red-500/5"
-                  : "border-white/[0.08] bg-white/[0.02]"
+                    ? "border-emerald-500/30 bg-emerald-500/8"
+                    : "border-red-500/30 bg-red-500/8"
+                  : "border-gray-700 bg-gray-800/60"
               }`}>
                 <div className="p-6">
-                  {/* Question header */}
                   <div className="flex items-start gap-3 mb-4">
-                    <span className="text-xs text-zinc-500 font-mono mt-0.5 w-5 shrink-0">{i + 1}</span>
+                    <span className="text-sm text-gray-400 font-bold mt-0.5 w-6 shrink-0">{i + 1}.</span>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      <div className="flex items-center gap-2 mb-3 flex-wrap">
                         <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${typeInfo.color}`}>{typeInfo.label}</span>
-                        <span className="text-xs text-zinc-600">{typeInfo.description}</span>
-                        <span className="ml-auto text-xs text-zinc-500">{q.maxScore} points</span>
+                        <span className="text-xs text-gray-400">{typeInfo.description}</span>
+                        <span className="ml-auto text-xs text-gray-300 font-medium">{q.maxScore} points</span>
                       </div>
-                      <p className="text-white text-sm leading-relaxed whitespace-pre-line">{q.text}</p>
+                      <p className="text-gray-100 text-sm leading-relaxed whitespace-pre-line">{q.text}</p>
                     </div>
                   </div>
 
-                  {/* Answer textarea */}
                   {(!allSubmitted || !hasGrade) && (
                     <textarea
                       value={answers[q.id] ?? ""}
@@ -215,45 +200,42 @@ export default function TestPage() {
                       placeholder={q.placeholder}
                       disabled={submitting || allSubmitted}
                       rows={8}
-                      className="w-full rounded-xl border border-white/[0.08] bg-[#09090b] text-zinc-100 text-sm p-4 resize-none focus:outline-none focus:border-violet-500/50 placeholder-zinc-600 disabled:opacity-50 font-mono leading-relaxed"
+                      className="w-full rounded-xl border border-gray-600 bg-gray-900 text-gray-100 text-sm p-4 resize-none focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400/30 placeholder-gray-500 disabled:opacity-50 leading-relaxed"
                     />
                   )}
 
-                  {/* Loading state */}
                   {grade?.loading && (
-                    <div className="flex items-center gap-3 text-sm text-zinc-400 py-4">
-                      <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+                    <div className="flex items-center gap-3 text-sm text-gray-300 py-4">
+                      <Loader2 className="h-4 w-4 animate-spin text-sky-400" />
                       Claude is grading this answer...
                     </div>
                   )}
 
-                  {/* Submitted answer (when graded) */}
                   {hasGrade && answers[q.id] && (
                     <div className="mb-4">
-                      <p className="text-xs text-zinc-500 mb-2 font-medium uppercase tracking-wide">Your answer</p>
-                      <div className="rounded-xl border border-white/[0.06] bg-[#09090b] p-4 text-sm text-zinc-300 font-mono leading-relaxed whitespace-pre-wrap">
+                      <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wide">Your answer</p>
+                      <div className="rounded-xl border border-gray-700 bg-gray-900 p-4 text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">
                         {answers[q.id]}
                       </div>
                     </div>
                   )}
 
-                  {/* Feedback */}
                   {hasGrade && (
-                    <div className={`rounded-xl border p-4 ${grade.passed ? "border-emerald-500/20 bg-emerald-500/5" : "border-amber-500/20 bg-amber-500/5"}`}>
+                    <div className={`rounded-xl border p-4 ${grade.passed ? "border-emerald-500/30 bg-emerald-500/10" : "border-amber-500/30 bg-amber-500/10"}`}>
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           {grade.passed
                             ? <CheckCircle className="h-4 w-4 text-emerald-400" />
                             : <XCircle className="h-4 w-4 text-amber-400" />}
-                          <span className={`text-sm font-semibold ${grade.passed ? "text-emerald-400" : "text-amber-400"}`}>
+                          <span className={`text-sm font-semibold ${grade.passed ? "text-emerald-300" : "text-amber-300"}`}>
                             {grade.passed ? "Passed" : "Needs improvement"}
                           </span>
                         </div>
-                        <span className={`text-sm font-bold ${grade.passed ? "text-emerald-400" : "text-amber-400"}`}>
+                        <span className={`text-sm font-bold ${grade.passed ? "text-emerald-300" : "text-amber-300"}`}>
                           {grade.score}/{q.maxScore}
                         </span>
                       </div>
-                      <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{grade.feedback}</p>
+                      <p className="text-sm text-gray-200 leading-relaxed whitespace-pre-line">{grade.feedback}</p>
                     </div>
                   )}
                 </div>
@@ -262,16 +244,15 @@ export default function TestPage() {
           })}
         </div>
 
-        {/* Bottom submit */}
         {!allSubmitted && (
           <div className="mt-8 flex items-center justify-between">
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-gray-300">
               {allAnswered ? "All questions answered — ready to submit" : `${mod.questions.length - answeredCount} question${mod.questions.length - answeredCount !== 1 ? "s" : ""} remaining`}
             </p>
             <button
               onClick={submitAll}
               disabled={submitting || !allAnswered}
-              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white disabled:opacity-40 disabled:cursor-not-allowed hover:from-violet-500 hover:to-indigo-500 transition-all duration-200 hover:-translate-y-0.5"
+              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white disabled:opacity-40 disabled:cursor-not-allowed hover:from-sky-400 hover:to-blue-500 transition-all duration-200 hover:-translate-y-0.5"
             >
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               {submitting ? "Grading all answers..." : "Submit & grade all"}

@@ -33,11 +33,18 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# local database
+*.db
+*.db-shm
+*.db-wal
+
+# generated files
+/lib/generated/
+/app/generated/
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/app/generated/prisma
