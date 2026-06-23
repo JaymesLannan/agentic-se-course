@@ -263,12 +263,17 @@ This document is not a proposal. It's a diagnosis. It should feel like a doctor'
     {
       id: "m11-q1",
       type: "conceptual",
-      text: "Explain the distinction between friction and inefficiency in a software development context. Why does this distinction matter for deciding where to apply agentic tools, and what happens when you get it wrong?",
-      rubric:
-        "Strong answer: friction = a step that is harder than it needs to be, localized, addressable (e.g., a manual step that could be automated, a tool with a bad interface for a specific task); inefficiency = spending time on work that doesn't produce the intended value (building unrequested features, maintaining unread documentation, running reviews that don't change outcomes); agents reduce friction effectively by making hard things easier; they cannot fix inefficiency — they make the inefficiency faster, which may even be counterproductive by increasing the output of valueless work; when you get it wrong you build an agent to generate documentation nobody reads faster, or to process a queue of tickets that should never have been created; the diagnostic question is 'what happens if this step doesn't get done?' Weak answer treats friction and inefficiency as synonyms or only gives one example.",
-      maxScore: 15,
-      placeholder:
-        "Define both terms, explain the mechanism of each, and describe what happens when you misidentify one as the other...",
+      text: "What is the key distinction between friction and inefficiency in a software development context, and what happens when you deploy agentic tools to address inefficiency instead of friction?",
+      options: [
+        "Friction and inefficiency are synonyms; agentic tools can address both equally well since they automate repetitive work regardless of whether that work produces value",
+        "Friction is a step that is harder than it needs to be; inefficiency is time spent on work that doesn't produce value. Agents reduce friction effectively but make inefficiency worse by generating valueless output faster",
+        "Inefficiency is localized and addressable by automation; friction is a systemic organizational problem that requires process change before agents can help",
+        "Friction is caused by human error in manual steps; inefficiency is caused by poor tool selection. Agents fix friction directly but only indirectly address inefficiency by recommending better tools",
+      ],
+      correctAnswer: "Friction is a step that is harder than it needs to be; inefficiency is time spent on work that doesn't produce value. Agents reduce friction effectively but make inefficiency worse by generating valueless output faster",
+      rubric: "Correct answer: friction vs inefficiency distinction. Friction = a step harder than it needs to be (localized, addressable by automation). Inefficiency = time spent on work that doesn't produce value (builds unrequested features, processes tickets that should never have been created). Agents make friction-heavy steps easier; they cannot fix inefficiency — they make the inefficiency faster, producing more valueless output. The diagnostic question is 'what happens if this step doesn't get done?'",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m11-q2",
@@ -283,12 +288,17 @@ This document is not a proposal. It's a diagnosis. It should feel like a doctor'
     {
       id: "m11-q3",
       type: "applied",
-      text: "You're 30 minutes into a discovery interview with a senior backend engineer. She's told you about several challenges, but when you ask about their code review process, she says 'Oh, that's fine — code review works well here, I don't have any complaints.' Your pre-interview research showed that the team's PR cycle time is 6 days on average and two other engineers you've interviewed have mentioned getting 'blocked' in review. How do you handle this moment in the interview?",
-      rubric:
-        "Strong answer: recognizes 'it's fine' as a possible signal of normalization or political sensitivity, not necessarily accurate data; does not argue with her or cite the statistics (that would put her on the defensive); instead: probe with specifics, not abstractions — 'when your PR sits for a while, what usually causes that? What kinds of things tend to slow it down?'; try the cross-company comparison — 'how does this compare to how it worked at [previous company]?'; try the hypothetical elimination — 'if you could change one thing about how PRs move here, what would you change?'; also consider that she's not wrong from her perspective — senior engineers often have faster cycle times because they get reviewed by peers; the 6-day average may be driven by junior engineers who aren't surfacing their experience to her; note that discrepancy between her account and the data / other interviews is itself a finding: PR process may have a seniority-stratified experience that's invisible at the senior level. Weak answer accepts her answer at face value or directly contradicts her.",
-      maxScore: 20,
-      placeholder:
-        "Describe your in-the-moment technique and what finding you extract from this discrepancy...",
+      text: "A senior backend engineer says 'code review works well here, I don't have any complaints' — but your research shows a 6-day average PR cycle time and two other engineers have mentioned being blocked in review. What is the best next move in the interview?",
+      options: [
+        "Share the 6-day cycle time data directly and ask her to reconcile her experience with the statistics",
+        "Accept her answer and move on — the discrepancy may reflect a seniority difference in experience, and challenging her risks making her defensive",
+        "Probe with specifics rather than abstractions: ask 'When your PR sits for a while, what usually causes that?' or use the hypothetical elimination: 'If you could change one thing about how PRs move here, what would it be?'",
+        "End the interview early and reschedule with a junior engineer whose experience better matches the cycle time data",
+      ],
+      correctAnswer: "Probe with specifics rather than abstractions: ask 'When your PR sits for a while, what usually causes that?' or use the hypothetical elimination: 'If you could change one thing about how PRs move here, what would it be?'",
+      rubric: "Correct answer: probe with specifics, not abstractions. 'It's fine' is a signal of normalization or seniority-stratified experience — not definitive data. Citing the statistics directly puts her on the defensive. Probing with concrete task-level questions or hypothetical eliminations surfaces her actual experience without confrontation. The discrepancy between her account and the data is itself a finding: PR experience may be stratified by seniority in ways invisible to her.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m11-q4",
@@ -303,12 +313,17 @@ This document is not a proposal. It's a diagnosis. It should feel like a doctor'
     {
       id: "m11-q5",
       type: "hands_on",
-      text: "Write a complete 60-minute discovery interview script for an individual contributor engineer. Include: your opening framing, the specific questions for each phase (warm-up, friction mapping, tool usage, agent-readiness probes, close), and your follow-up probes for the most important moments. Also note what you're listening for with each question — not just asking, but what signals the answer might contain.",
-      rubric:
-        "Strong answer is specific and usable — a practitioner could run this interview verbatim; warm-up questions establish context and build rapport without leading; friction mapping avoids 'pain points' language, uses specific-task questions ('what did you do last week that took longer than it should'); tool usage section asks about actual tools with follow-up on workarounds; agent-readiness probes use indirect language (don't mention AI agents, ask about trust in automation); close includes 'what have I not asked' and 'who else should I talk to' and 'what would a win look like for you personally'; follow-up probes are specific — when engineer says 'it's fine,' the probe is 'what would better look like?' not 'are you sure?'; the 'what are you listening for' notes are substantive — for the friction mapping section, listening for: repetition cues (they mention the same tool/process twice), normalization language ('that's just how it is'), workarounds described enthusiastically. Weak answer is a generic interview guide without the agent-readiness probes or the 'what you're listening for' dimension.",
-      maxScore: 20,
-      placeholder:
-        "Write the complete interview script with all phases, specific questions, probes, and listening notes...",
+      text: "Which discovery interview practice most directly detects normalization — where engineers have accepted a painful process as 'just how it is' and don't surface it as a problem?",
+      options: [
+        "Starting the interview by asking 'What are your biggest pain points?' to surface the most significant issues before the engineer becomes guarded",
+        "Asking about specific tasks ('What did you do last week that took longer than it should?') rather than abstract pain, because normalization shows in concrete descriptions but disappears in summary complaints",
+        "Recording the interview so you can review the transcript later for patterns the engineer mentioned but didn't emphasize",
+        "Conducting interviews in pairs so one interviewer asks questions while the other watches for body language that reveals unexpressed frustration",
+      ],
+      correctAnswer: "Asking about specific tasks ('What did you do last week that took longer than it should?') rather than abstract pain, because normalization shows in concrete descriptions but disappears in summary complaints",
+      rubric: "Correct answer: specific task questions, not abstract pain questions. When engineers have normalized a painful process, they won't name it as a pain point — but they will describe it concretely when asked about a specific recent task. 'What did you do last week that took longer than it should?' bypasses the normalized frame and gets to observable reality. 'What are your pain points?' is filtered through what the engineer considers worth mentioning, which excludes normalized friction.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m11-q6",
@@ -323,12 +338,17 @@ This document is not a proposal. It's a diagnosis. It should feel like a doctor'
     {
       id: "m11-q7",
       type: "edge_case",
-      text: "Three days into discovery, you realize that the client's stated problem ('our deployment pipeline is slow') is a red herring. The real problem is that their product manager is writing requirements so vague that engineers spend 40% of their time in clarification meetings and building things that get rejected at demo. This is a people and process problem, not an agentic tools problem. How do you handle this situation?",
-      rubric:
-        "Strong answer: does not bury the finding or pivot to a different scope to protect the engagement; surfaces the finding clearly in the discovery output with evidence from the interviews; acknowledges the scope boundary: agentic tools can help with some parts of this (requirements disambiguation, generating clarifying questions from a spec, structured requirement templates), but the core problem is a product/engineering collaboration process issue that requires process change and possibly coaching; gives the client an honest choice: (1) address the root cause first, which is outside the current engagement scope but should be prioritized; (2) build agentic tools that help engineers navigate the vague requirements better (a more limited intervention); recommends option 1 while offering option 2 as a partial mitigation; notes that deploying agentic development tools into an environment with unclear requirements will generate bad output faster — which is worse, not better. Shows the ethical dimension: the right answer for the client may not be the answer that keeps the engagement going. Weak answer suggests building AI tools for the requirements process without acknowledging that the problem is organizational, not technical.",
-      maxScore: 20,
-      placeholder:
-        "Explain how you surface this finding, what options you give the client, and what you recommend...",
+      text: "Three days into discovery, you identify that the client's stated problem ('our deployment pipeline is slow') is a red herring — the real problem is vague product requirements causing 40% of engineering time to be spent in clarification meetings and rejected features. What is the correct approach?",
+      options: [
+        "Pivot the engagement scope to focus on AI tools for requirements writing, since this is where the real value is and the client will appreciate the insight",
+        "Continue addressing the stated problem (deployment pipeline) to maintain scope, and note the requirements issue in a separate document for the client to address independently",
+        "Surface the finding clearly in the discovery output with evidence, present the client with honest options, and note that deploying agentic development tools into an environment with unclear requirements will generate bad output faster — which is worse, not better",
+        "Recommend ending the engagement since the root problem is organizational and outside the scope of agentic tooling entirely",
+      ],
+      correctAnswer: "Surface the finding clearly in the discovery output with evidence, present the client with honest options, and note that deploying agentic development tools into an environment with unclear requirements will generate bad output faster — which is worse, not better",
+      rubric: "Correct answer: surface the finding honestly with options. Don't bury the discovery to protect the engagement. Agentic tools can partially help (requirements disambiguation, generating clarifying questions) but the core problem is organizational. Present both options: address root cause first (outside current scope, higher priority) or build tools to help engineers navigate vague requirements (limited mitigation). The ethical dimension: the right answer for the client may not be the answer that keeps the engagement going. Deploying agents into unclear-requirements environments generates bad output faster — making things worse.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m11-q8",

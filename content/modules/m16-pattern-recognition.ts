@@ -186,12 +186,17 @@ Archiving is not deletion — the historical record is valuable for understandin
     {
       id: "m16-q1",
       type: "conceptual",
-      text: "Define the three criteria that distinguish a repeatable pattern from a one-off solution. Then explain why having only two of the three criteria produces a pattern that is dangerous to put in a playbook.",
-      rubric:
-        "Strong answer: three criteria: (1) appears in multiple contexts; (2) has predictable inputs and outputs; (3) can be documented and transferred; why each pair without the third is dangerous: appears in multiple contexts + predictable inputs/outputs but cannot be documented — produces pattern that lives in an expert's head and can't be used by anyone else, or if it is documented it's too tacit to be useful; appears in multiple contexts + can be documented but unpredictable inputs/outputs — you can recognize the situation but you can't tell when the approach is appropriate or when it has worked, making it impossible to apply correctly or evaluate afterwards; predictable inputs/outputs + can be documented but only seen once — creates a false pattern from insufficient data; the two-instance rule protects against the last failure mode; the full-documentation requirement protects against the first; the predictability requirement protects against the second; strong answers give a concrete example of each dangerous combination. Weak answer lists the three criteria without explaining the danger of missing any one.",
-      maxScore: 15,
-      placeholder:
-        "Define all three criteria and explain specifically what goes wrong when each one is missing...",
+      text: "A pattern has been observed in multiple contexts and can be clearly documented, but its outputs are unpredictable — sometimes the approach works and sometimes it doesn't without any clear explanation. Why is this pattern dangerous to include in a playbook?",
+      options: [
+        "It shouldn't be excluded — unpredictable patterns are the most important to document because they require the most practitioner judgment to apply correctly",
+        "Without predictable inputs/outputs, practitioners cannot determine when the approach is appropriate, cannot evaluate whether it has worked, and may apply it confidently in situations where it will fail — the pattern looks reusable but cannot actually be used reliably",
+        "Unpredictable patterns should be included with a 'high difficulty' rating so only senior practitioners apply them, while junior practitioners use more reliable alternatives",
+        "The pattern should be documented as a failure mode rather than an approach, so practitioners know what to avoid rather than what to attempt",
+      ],
+      correctAnswer: "Without predictable inputs/outputs, practitioners cannot determine when the approach is appropriate, cannot evaluate whether it has worked, and may apply it confidently in situations where it will fail — the pattern looks reusable but cannot actually be used reliably",
+      rubric: "Correct answer: unpredictable outputs make a pattern unreliable. The three criteria for a repeatable pattern are: (1) appears in multiple contexts, (2) has predictable inputs/outputs, (3) can be documented and transferred. Missing predictability means practitioners can recognize the situation but can't determine when the approach is appropriate, can't evaluate whether it worked, and will apply it confidently in situations where it will fail. A pattern that meets the other two criteria but not predictability looks reusable but is actually dangerous.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m16-q2",
@@ -206,12 +211,17 @@ Archiving is not deletion — the historical record is valuable for understandin
     {
       id: "m16-q3",
       type: "applied",
-      text: "You're in week 3 of an engagement. An engineer tells you: 'We tried GitHub Copilot two years ago and it didn't work — engineers used it for a month and then stopped.' You've heard almost exactly this sentence in two previous engagements at different companies. Describe the pattern extraction process you'd run in this moment, and what the initial playbook entry looks like.",
-      rubric:
-        "Strong answer extraction process: immediately flag this as a potential pattern (third instance of 'we tried an AI coding tool and adoption died'); during the session: ask the follow-up questions that extract the input conditions — 'What do you think went wrong?' 'Who used it? What kinds of things did they use it for?' 'When did people stop?' 'Was there any specific incident that accelerated the drop-off?' 'What support was there during the adoption period?'; after the session: compare what you heard here with what you heard in the previous two engagements; identify the structural commonalities (probable: no structured onboarding, no protected time, tool used for trivial tasks, no sustained support after initial introduction, no metrics to show progress); write the pattern log entry immediately; initial playbook entry: Problem — 'Team has a prior failed adoption of an AI coding tool and is now resistant to a new tool because of the prior experience. The resistance is often expressed as: we tried this before and it did not work.' Context conditions — engineering team with 1+ year of experience since the failed adoption, tool abandoned within 60 days of introduction; Approach — start by understanding the specific cause of the prior failure (was it onboarding? support? task mismatch? no protected time?) before proposing anything new; different causes require different interventions; Gotchas — the prior failure may have been caused by a different fundamental problem (the team didn't have the prerequisites for adoption) that still exists; Success metrics — engineers can name a specific reason the previous adoption failed and a specific structural difference in the current approach. Weak answer extracts a generic 'prior tool failure' pattern without the diagnostic depth.",
-      maxScore: 20,
-      placeholder:
-        "Describe the in-moment extraction process and write the initial playbook entry with all five components...",
+      text: "An engineer says 'We tried GitHub Copilot two years ago and it didn't work — engineers used it for a month and then stopped.' You've heard this exact situation in two previous engagements. What is the correct pattern extraction response in this moment?",
+      options: [
+        "Map it immediately to your existing 'blocker persona' pattern and apply the standard approach for converting skeptics — this is a familiar resistance situation",
+        "Flag it as a potential pattern (third instance), use remaining interview time to extract the input conditions (what went wrong, when did people stop, what support existed), compare with previous instances after the session, and write an initial playbook entry capturing the common structural cause",
+        "Note it privately but don't act on it during the interview — you don't yet have enough instances to confirm it's a pattern rather than a coincidence",
+        "Share your previous observations with the engineer immediately to build rapport by demonstrating your pattern recognition and experience with this situation",
+      ],
+      correctAnswer: "Flag it as a potential pattern (third instance), use remaining interview time to extract the input conditions (what went wrong, when did people stop, what support existed), compare with previous instances after the session, and write an initial playbook entry capturing the common structural cause",
+      rubric: "Correct answer: flag, extract conditions, compare, write entry. The third instance meets the two-instance rule threshold — flag it as a pattern immediately. Use the remaining interview time to probe input conditions: 'What went wrong?' 'When did people stop?' 'What support existed?' After the session, compare with the previous two instances to identify structural commonalities (probable: no onboarding, no protected time, tool used for trivial tasks, no sustained support). Write the initial playbook entry immediately while the details are fresh. Don't wait for more data or skip to an existing pattern without checking whether the approach differs.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m16-q4",
@@ -226,12 +236,17 @@ Archiving is not deletion — the historical record is valuable for understandin
     {
       id: "m16-q5",
       type: "hands_on",
-      text: "Write a complete playbook entry for the 'Context Collapse Pattern' — the situation where multiple engineers running independent agentic sessions produce architecturally inconsistent code that surfaces at integration time. Include all five components at full depth.",
-      rubric:
-        "Strong answer: Problem statement (recognition guide): 'Team has been using agentic tools for 6+ weeks with 5+ engineers running independent sessions. At integration time (PR merges, sprint-end integration), architectural inconsistencies appear: duplicate implementations of the same concept in different styles, naming convention drift, incompatible assumptions about shared services. Engineers are producing more code faster but spending increasing time on integration conflicts.'; Context conditions: team size 5+, agentic tool adoption 6+ weeks, no shared context mechanism (no CLAUDE.md or equivalent, no active ADR process), multiple engineers touching adjacent areas of the codebase; Approach: (1) audit: run a codebase consistency check — identify all cases of the same concept implemented twice, name convention violations, incompatible assumptions (this can be done with an agent itself); (2) triage: categorize inconsistencies by severity and refactor complexity; address critical ones immediately, defer low-severity; (3) root cause analysis: for each major inconsistency, identify which sessions produced the incompatible implementations and what context they were missing; (4) CLAUDE.md creation: write a CLAUDE.md that captures the architectural decisions that, if they'd been in context, would have prevented each inconsistency; (5) pre-session protocol: establish that engineers review relevant CLAUDE.md sections before starting any session that touches an area with prior architectural decisions; (6) ownership: assign CLAUDE.md maintenance to a tech lead with explicit trigger conditions for updating it; Gotchas: if the inconsistencies predate agentic tool adoption, agents are accelerators of a pre-existing problem — the fix is different (standard codebase refactor before deploying CLAUDE.md); this pattern is often misdiagnosed as 'agents write bad code' — the correct diagnosis is 'agents write good code from bad context'; Success metrics: no new architectural inconsistencies in the next sprint review; CLAUDE.md covers all architectural domains that produced inconsistencies; every engineer can describe what to check before starting a session in an unfamiliar codebase area. Weak answer is missing one or more components or provides shallow content in any component.",
-      maxScore: 20,
-      placeholder:
-        "Write the complete 5-component playbook entry for the Context Collapse Pattern at full depth...",
+      text: "In a playbook entry for the Context Collapse Pattern (multiple engineers running independent agentic sessions producing architecturally inconsistent code), what is the most critical 'gotcha' that distinguishes correct diagnosis from the common misdiagnosis?",
+      options: [
+        "The pattern only applies when agents are working on adjacent parts of the codebase — sessions in completely separate modules cannot produce context collapse",
+        "The context collapse pattern is often misdiagnosed as 'agents write bad code' — the correct diagnosis is 'agents write good code from bad context.' If inconsistencies predate agentic adoption, agents are accelerators of a pre-existing problem requiring a different fix",
+        "The pattern requires at least 5 engineers to manifest — smaller teams have sufficient communication bandwidth to catch context collapse through normal code review",
+        "Context collapse only occurs in large codebases — teams working in codebases under 100,000 lines have enough session overlap to maintain architectural consistency naturally",
+      ],
+      correctAnswer: "The context collapse pattern is often misdiagnosed as 'agents write bad code' — the correct diagnosis is 'agents write good code from bad context.' If inconsistencies predate agentic adoption, agents are accelerators of a pre-existing problem requiring a different fix",
+      rubric: "Correct answer: misdiagnosis is 'agents write bad code.' The correct diagnosis is 'agents write good code from bad context.' The fix for context collapse is providing shared context (CLAUDE.md, ADRs, pre-session protocol) — not reverting agent use. The critical gotcha: if architectural inconsistencies predate agentic adoption, agents are accelerating a pre-existing problem, and the fix is different (standard codebase refactor before deploying shared context mechanisms). Diagnosing pre-existing inconsistency as context collapse will produce a CLAUDE.md that doesn't address the actual root cause.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m16-q6",
@@ -246,12 +261,17 @@ Archiving is not deletion — the historical record is valuable for understandin
     {
       id: "m16-q7",
       type: "edge_case",
-      text: "You discover that two SEs on your team have independently developed playbook entries for what appears to be the same pattern — the QA bottleneck pattern — but their entries have different approaches. One recommends automated pre-screening as the first move; the other recommends review distribution as the first move. Both claim their approach worked in multiple engagements. How do you resolve this, and what does this situation tell you about how patterns should be structured?",
-      rubric:
-        "Strong answer: don't resolve it by picking one — this is actually a discovery opportunity; if two experienced SEs developed different approaches for what looks like the same pattern and both worked, the most likely explanation is that the pattern has two variants with different context conditions that weren't captured in either entry; the resolution process: (1) get both SEs to walk through their engagements together: what were the specific context conditions? (automated pre-screening works better when CI is already reliable and the bottleneck is mechanical checking; review distribution works better when knowledge is siloed and the bottleneck is access to the right reviewer, not the amount of review); (2) the pattern may need to split: 'QA Bottleneck - Throughput Variant' and 'QA Bottleneck - Knowledge Silo Variant' with different context conditions driving which variant applies; (3) merge the gotchas across both entries — each SE's failure cases are the other SE's edge cases; what this tells you about pattern structure: the context conditions section is the most important part of an entry for distinguishing patterns; when two approaches work in different cases for the same apparent problem, the context conditions weren't specific enough to distinguish the two cases; the resolution is always to make the context conditions more precise, not to declare one approach right. Weak answer merges the two entries by combining both approaches into a single linear approach (without understanding when to use which).",
-      maxScore: 20,
-      placeholder:
-        "Describe the resolution process, what the two-variant discovery reveals, and what this tells you about playbook structure...",
+      text: "Two SEs independently developed different playbook entries for the same QA bottleneck pattern — one recommends automated pre-screening first, the other recommends review distribution first. Both claim their approach worked in multiple engagements. What does this most likely indicate?",
+      options: [
+        "One of the two SEs made an error in their engagement retrospective — patterns cannot have two correct approaches, so one must be the real solution",
+        "The pattern has two variants with different context conditions neither entry captured — pre-screening works best when the bottleneck is mechanical checking, review distribution works best when the bottleneck is knowledge silo access to the right reviewer",
+        "Both approaches are equivalent and the playbook should merge them into a single entry listing pre-screening and review distribution as parallel options to apply together",
+        "The QA bottleneck pattern is too complex to document reliably — both entries should be archived and SEs should rely on judgment for this situation",
+      ],
+      correctAnswer: "The pattern has two variants with different context conditions neither entry captured — pre-screening works best when the bottleneck is mechanical checking, review distribution works best when the bottleneck is knowledge silo access to the right reviewer",
+      rubric: "Correct answer: two variants, not two conflicting answers. When two experienced SEs develop different approaches that both work, the most likely explanation is the pattern has variants with different context conditions. Don't pick one — investigate: what were the specific context conditions in each engagement? Pre-screening fixes throughput (CI is reliable, bottleneck is mechanical checking volume). Review distribution fixes knowledge concentration (only one person can review certain code areas). The resolution: split into two variants with precise context conditions, merge gotchas across both entries. The context conditions section is the most important part for distinguishing patterns.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m16-q8",

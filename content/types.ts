@@ -7,6 +7,9 @@ export interface Question {
   rubric: string;
   maxScore: number;
   placeholder: string;
+  // Multiple choice — if present, renders as radio buttons and auto-grades
+  options?: string[];
+  correctAnswer?: string;
 }
 
 export interface Module {

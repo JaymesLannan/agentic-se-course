@@ -123,7 +123,7 @@ export default function TestPage() {
         <div className="mb-8">
           <p className="text-xs font-bold uppercase tracking-widest text-sky-300 mb-2">{mod.trackName} · Module {mod.order}</p>
           <h1 className="text-2xl font-extrabold text-white mb-2">{mod.title} — Test</h1>
-          <p className="text-gray-300 text-sm">{mod.questions.length} questions · Score 80%+ to advance · Claude grades every answer</p>
+          <p className="text-gray-300 text-sm">{mod.questions.length} questions · Score 80%+ to advance · Claude grades open-ended answers</p>
         </div>
 
         {/* Result banner */}
@@ -141,20 +141,12 @@ export default function TestPage() {
                 {savingProgress && <p className="text-xs text-gray-400 mt-1">Saving progress...</p>}
               </div>
               {passed ? (
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-400 transition-colors"
-                >
+                <Link href="/" className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-400 transition-colors">
                   Continue <ChevronRight className="h-4 w-4" />
                 </Link>
               ) : (
                 <button
-                  onClick={() => {
-                    setAllSubmitted(false);
-                    setGrades({});
-                    setFinalScore(null);
-                    setPassed(false);
-                  }}
+                  onClick={() => { setAllSubmitted(false); setGrades({}); setFinalScore(null); setPassed(false); }}
                   className="flex items-center gap-2 rounded-xl bg-gray-700 px-5 py-2.5 text-sm font-semibold text-gray-100 hover:bg-gray-600 transition-colors"
                 >
                   <RefreshCw className="h-4 w-4" />
@@ -171,13 +163,12 @@ export default function TestPage() {
             const typeInfo = TYPE_LABELS[q.type] ?? { label: q.type, color: "text-gray-300 border-gray-500/40 bg-gray-500/10", description: "" };
             const grade = grades[q.id];
             const hasGrade = grade && !grade.loading;
+            const isMC = !!(q.options && q.correctAnswer);
 
             return (
               <div key={q.id} className={`rounded-2xl border transition-all duration-200 ${
                 hasGrade
-                  ? grade.passed
-                    ? "border-emerald-500/30 bg-emerald-500/8"
-                    : "border-red-500/30 bg-red-500/8"
+                  ? grade.passed ? "border-emerald-500/30 bg-emerald-500/8" : "border-red-500/30 bg-red-500/8"
                   : "border-gray-700 bg-gray-800/60"
               }`}>
                 <div className="p-6">
@@ -186,6 +177,7 @@ export default function TestPage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-3 flex-wrap">
                         <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${typeInfo.color}`}>{typeInfo.label}</span>
+                        {isMC && <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-gray-500/40 bg-gray-500/10 text-gray-300">Multiple Choice</span>}
                         <span className="text-xs text-gray-400">{typeInfo.description}</span>
                         <span className="ml-auto text-xs text-gray-300 font-medium">{q.maxScore} points</span>
                       </div>
@@ -193,7 +185,68 @@ export default function TestPage() {
                     </div>
                   </div>
 
-                  {(!allSubmitted || !hasGrade) && (
+                  {/* Multiple choice options */}
+                  {isMC && !hasGrade && (
+                    <div className="space-y-2 ml-9">
+                      {q.options!.map((option, optIdx) => {
+                        const isSelected = answers[q.id] === option;
+                        return (
+                          <label
+                            key={optIdx}
+                            className={`flex items-center gap-3 p-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${
+                              submitting || allSubmitted ? "opacity-50 cursor-not-allowed" :
+                              isSelected
+                                ? "border-sky-400/60 bg-sky-500/15 text-white"
+                                : "border-gray-600 bg-gray-900/50 text-gray-300 hover:border-gray-500 hover:bg-gray-800"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name={q.id}
+                              value={option}
+                              checked={isSelected}
+                              onChange={() => !submitting && !allSubmitted && setAnswers((prev) => ({ ...prev, [q.id]: option }))}
+                              disabled={submitting || allSubmitted}
+                              className="accent-sky-400 h-4 w-4 shrink-0"
+                            />
+                            <span className="text-sm leading-snug">{option}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* MC result display */}
+                  {isMC && hasGrade && (
+                    <div className="ml-9 space-y-2">
+                      {q.options!.map((option, optIdx) => {
+                        const isSelected = answers[q.id] === option;
+                        const isCorrect = option === q.correctAnswer;
+                        return (
+                          <div
+                            key={optIdx}
+                            className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                              isCorrect
+                                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                                : isSelected && !isCorrect
+                                ? "border-red-500/40 bg-red-500/10 text-red-300"
+                                : "border-gray-700 bg-gray-900/30 text-gray-500"
+                            }`}
+                          >
+                            {isCorrect ? <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                              : isSelected ? <XCircle className="h-4 w-4 text-red-400 shrink-0" />
+                              : <span className="h-4 w-4 shrink-0" />}
+                            <span className="text-sm leading-snug">{option}</span>
+                            {isSelected && !isCorrect && <span className="text-xs text-red-400 ml-auto">Your answer</span>}
+                            {isCorrect && <span className="text-xs text-emerald-400 ml-auto">Correct</span>}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Open-ended textarea */}
+                  {!isMC && (!allSubmitted || !hasGrade) && (
                     <textarea
                       value={answers[q.id] ?? ""}
                       onChange={(e) => setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))}
@@ -211,7 +264,8 @@ export default function TestPage() {
                     </div>
                   )}
 
-                  {hasGrade && answers[q.id] && (
+                  {/* Open-ended submitted answer */}
+                  {!isMC && hasGrade && answers[q.id] && (
                     <div className="mb-4">
                       <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wide">Your answer</p>
                       <div className="rounded-xl border border-gray-700 bg-gray-900 p-4 text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">
@@ -220,9 +274,10 @@ export default function TestPage() {
                     </div>
                   )}
 
+                  {/* Feedback block */}
                   {hasGrade && (
-                    <div className={`rounded-xl border p-4 ${grade.passed ? "border-emerald-500/30 bg-emerald-500/10" : "border-amber-500/30 bg-amber-500/10"}`}>
-                      <div className="flex items-center justify-between mb-3">
+                    <div className={`rounded-xl border p-4 mt-4 ${grade.passed ? "border-emerald-500/30 bg-emerald-500/10" : "border-amber-500/30 bg-amber-500/10"}`}>
+                      <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           {grade.passed
                             ? <CheckCircle className="h-4 w-4 text-emerald-400" />

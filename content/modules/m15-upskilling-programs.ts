@@ -207,12 +207,17 @@ A program that isn't working shows signals early if you're looking for them. The
     {
       id: "m15-q1",
       type: "conceptual",
-      text: "Explain the difference between a training session, a training series, and an upskilling program. Why do organizations that run training series instead of programs often produce good session feedback scores and poor long-term behavior change?",
-      rubric:
-        "Strong answer: a session is a single learning event; a training series is multiple sessions (usually with the same structure repeated); an upskilling program has a designed progression (skills build on each other), a measurement system, and a sustaining mechanism; series produce good feedback scores because individual sessions can be engaging and valuable in isolation; they fail to produce durable behavior change because: (1) there's no progression — each session is self-contained, so engineers don't build on previous learning; (2) there's no accountability structure between sessions — what you commit to in session 3 is forgotten by session 4; (3) there's no sustaining mechanism — when the series ends, there's nothing to maintain the behavior that was developing; (4) session feedback measures experience quality, not learning; the gap between experience quality and behavior change is where training series fail; a program bridges this gap through designed progression, inter-session accountability, and post-program mechanisms. Weak answer says a program is 'more comprehensive' without explaining the mechanism of failure in the series approach.",
-      maxScore: 15,
-      placeholder:
-        "Define all three, explain the mechanism behind the series failure mode, and identify what a program adds that series lack...",
+      text: "Training series consistently produce strong session feedback scores but poor long-term behavior change. What is the primary structural reason?",
+      options: [
+        "Engineers enjoy training sessions but don't implement what they learn because they lack management support to change their established workflows",
+        "Session feedback measures experience quality, not learning — and series lack the designed progression, inter-session accountability, and sustaining mechanisms that convert learning into durable behavior change",
+        "Training series are too short to teach agentic tools, which require months of continuous practice before producing any measurable productivity improvement",
+        "Engineers who attend training series already know the content from self-directed learning online, so sessions don't introduce genuinely new knowledge",
+      ],
+      correctAnswer: "Session feedback measures experience quality, not learning — and series lack the designed progression, inter-session accountability, and sustaining mechanisms that convert learning into durable behavior change",
+      rubric: "Correct answer: experience quality vs behavior change gap. Session feedback scores measure how much engineers enjoyed the session — not what they learned or changed. Series fail to produce durable behavior change because: (1) no progression — each session is self-contained; (2) no inter-session accountability — commitments made in session 3 are forgotten by session 4; (3) no sustaining mechanism — when the series ends, nothing maintains the developing behavior. A program adds designed progression, accountability structure, and post-program mechanisms that bridge the experience/behavior gap.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m15-q2",
@@ -227,12 +232,17 @@ A program that isn't working shows signals early if you're looking for them. The
     {
       id: "m15-q3",
       type: "applied",
-      text: "You're designing a 4-week upskilling program for a 15-person Python data engineering team at a logistics company. Their stack: Python, dbt, Airflow, Snowflake, GitHub. They build and maintain data pipelines. None have used Claude Code before, but 3 have used ChatGPT for ad hoc help. The data engineering manager wants to see 'measurable productivity improvement' by the end of the program. What are the specific success criteria you'd propose, how would you assess the starting point, and what does week 1 look like in detail?",
-      rubric:
-        "Strong answer: success criteria — specific and measurable: (1) 80% of engineers use Claude Code for at least 3 types of data engineering tasks by week 4 (dbt model generation, Airflow DAG debugging, Snowflake query optimization, data quality check generation); (2) PR cycle time for data pipeline changes decreases by at least 15% from baseline; (3) time to first working draft for new dbt models decreases from baseline; why these metrics: they're directly tied to data engineering work, not generic productivity; starting point assessment: (1) skill audit questionnaire covering the 5-capability framework — adapted for data engineering context; (2) usage observation: 30 minutes watching each engineer do a real dbt model build or pipeline debug task; (3) manager interview: who's using ChatGPT for what? What are the most painful tasks?; week 1 detail: Monday: setup session (90 min) — Claude Code install, MCP configuration for their GitHub, a CLAUDE.md template for dbt conventions and Snowflake dialect; Tuesday-Thursday: first application task (assigned, not optional): 'use Claude Code to generate tests for a dbt model you built this week, report what happened by Friday'; Friday: 30-minute group check-in (what happened? who got stuck? who got a win?); assessment gate: 100% completion by Friday check-in. Weak answer is generic, doesn't connect to Python/dbt/Airflow context.",
-      maxScore: 20,
-      placeholder:
-        "Specify success criteria with thresholds, describe the starting-point assessment, and write week 1 in detail including the assignment and assessment gate...",
+      text: "When designing success criteria for a 4-week upskilling program for a Python data engineering team, which approach is most likely to produce meaningful measurement?",
+      options: [
+        "Measure completion rate (% of engineers who attended all 4 weeks) and satisfaction score (post-program survey), as these reflect program quality and engagement",
+        "Track story points completed per sprint before and after the program, since this is the standard productivity metric that management already understands and trusts",
+        "Define specific thresholds tied to the team's actual work: % using the tool for their primary task types (dbt model generation, DAG debugging) by week 4, PR cycle time change for pipeline work, and time to first working draft for new models",
+        "Count the number of times engineers open Claude Code per day, since usage frequency is the most direct proxy for real adoption of the new tooling",
+      ],
+      correctAnswer: "Define specific thresholds tied to the team's actual work: % using the tool for their primary task types (dbt model generation, DAG debugging) by week 4, PR cycle time change for pipeline work, and time to first working draft for new models",
+      rubric: "Correct answer: stack-specific thresholds tied to actual work. Generic metrics (attendance, satisfaction, story points) measure the wrong things. Meaningful success criteria are directly tied to the team's actual work: adoption of the tool for their primary task types (dbt, Airflow, Snowflake), cycle time change for pipeline PRs, and time to working draft for new models. These metrics are specific enough that you can't hit them without genuine behavior change — they can't be satisfied by attending sessions or opening the tool briefly.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m15-q4",
@@ -247,12 +257,17 @@ A program that isn't working shows signals early if you're looking for them. The
     {
       id: "m15-q5",
       type: "hands_on",
-      text: "Design a complete starting-point assessment protocol for a 12-person full-stack TypeScript team (React, Node.js, PostgreSQL, AWS). Include: the skill audit questionnaire (list all questions), the practical assessment task, the usage observation protocol (what you're watching for and how you record it), and the output format of the assessment report that will drive curriculum design.",
-      rubric:
-        "Strong answer skill audit questionnaire: covers 5 capability areas with 2-3 questions each — prompt construction: 'Have you used any AI coding assistants before? What did you use them for? What made your prompts work well or poorly?'; context management: 'When you ask for help on a coding task, what information do you include? How do you decide what to include?'; output evaluation: 'When an AI tool produces code, how do you verify it's correct? Describe a time you caught an error in AI-generated code.'; tool integration: 'Have you configured any development tools in the past 6 months? How comfortable are you with CLI configuration?'; workflow integration: 'Where in your development workflow do you currently use any AI assistance? Where would you most want to?'; practical task: 'Use Claude Code (or [approved tool]) to add input validation to this Node.js API endpoint. You have 20 minutes. Think out loud as you work.'; usage observation protocol: observer records every 5 minutes — what is the engineer looking at? what did they type? what did the agent produce? did they read it before accepting? where did they get stuck?; specific behaviors to watch for: instinctive StackOverflow reach vs agent reach, time spent reading vs time spent prompting, critical evaluation behavior, recovery from wrong output; assessment report format: per-engineer skill level (1-5 on each capability), team distribution (histogram), specific gaps most common, outliers, the top 3 failure modes observed, and curriculum recommendations (what to spend most time on given this team's specific starting point). Weak answer provides generic questions or doesn't include the observation protocol.",
-      maxScore: 20,
-      placeholder:
-        "Write the complete assessment protocol with all four components in detail...",
+      text: "In a starting-point skill assessment for a development team new to agentic tools, which observation during a practical assessment task is most informative about their current calibration level?",
+      options: [
+        "Whether they can correctly describe the difference between Claude Code and GitHub Copilot in a pre-assessment quiz",
+        "How quickly they complete the practical assessment task, since speed indicates comfort with the tooling and reduces the ramp time estimate",
+        "Whether they read and evaluate the agent's output before accepting it — the critical verification behavior that distinguishes calibrated from uncalibrated users",
+        "Whether they use agentic features (file reading, multi-step tasks) or only the chat interface, since feature usage indicates understanding of the tool's architecture",
+      ],
+      correctAnswer: "Whether they read and evaluate the agent's output before accepting it — the critical verification behavior that distinguishes calibrated from uncalibrated users",
+      rubric: "Correct answer: output evaluation behavior is the most informative signal. Calibration is the skill of knowing when to trust the output and when to check it — and the observable indicator is whether engineers actually read and evaluate the output before accepting it. Engineers who accept outputs without reading them will become over-trusters; engineers who read but don't know how to evaluate will become frustrated; engineers who read and systematically evaluate are calibrated. Speed and feature usage are secondary indicators; conceptual knowledge (quiz) doesn't predict behavior.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m15-q6",
@@ -267,12 +282,17 @@ A program that isn't working shows signals early if you're looking for them. The
     {
       id: "m15-q7",
       type: "edge_case",
-      text: "Midway through a 4-week program at a 20-person engineering team, the engineering manager who commissioned the program leaves unexpectedly. Their replacement has no context on the program, is skeptical of AI tools in general, and in their first week has deprioritized 'learning time' in favor of a product deadline. You have 2 weeks of program remaining. What do you do?",
-      rubric:
-        "Strong answer: this is a stakeholder continuity failure — the internal sponsor is gone and the replacement is hostile; immediate actions: (1) request a 30-minute meeting with the new manager within their first week; objective: not to pitch the program, but to orient them and hear their concerns; don't advocate, listen; (2) reframe the program to their immediate concern (the deadline): 'the engineers using this tool are currently shipping faster — here's what that means for the deadline'; show the week 1-2 data; this reframes the program from 'investment in future capability' to 'current sprint throughput tool'; (3) do not fight the deadline reprioritization directly — instead, offer a compressed format: '4 remaining sessions becomes 2 focused sessions on the highest-ROI use cases for the current deadline'; show adaptability; (4) protect the champion cohort: make sure the 2-3 engineers who are most capable are set up to continue without the program — give them the self-direction resources early; (5) set a specific 30-day check-in with the new manager for after the deadline — 'let's revisit the rest of the program when the sprint is done'; do not accept 'we'll see' as a timeline; strong answers show the ability to navigate organizational change without either capitulating to the new manager's framing or rigidly insisting on the original plan. Weak answer either continues as planned (ignoring the organizational reality) or accepts full cancellation without advocacy.",
-      maxScore: 20,
-      placeholder:
-        "Describe your immediate actions, how you reframe the program to the new manager's concerns, and what you protect if the program is partially cut...",
+      text: "Midway through a 4-week program, the sponsoring engineering manager leaves and their replacement is skeptical of AI tools and has deprioritized 'learning time' for a product deadline. What is the most effective immediate response?",
+      options: [
+        "Continue the program as planned — the engineers' commitment to the program is independent of management sponsorship and abandoning it wastes the investment already made",
+        "Pause the program and wait until after the deadline to restart — attempting to continue over management objection will create resentment that undermines long-term adoption",
+        "Request a 30-minute meeting with the new manager to listen to their concerns, reframe the program in terms of the current deadline ('engineers using this are shipping faster — here's what that means for your deadline'), offer a compressed format, and protect the champion cohort regardless of the program's fate",
+        "Escalate to the new manager's leadership to ensure program continuation is supported at a higher organizational level before their skepticism takes root",
+      ],
+      correctAnswer: "Request a 30-minute meeting with the new manager to listen to their concerns, reframe the program in terms of the current deadline ('engineers using this are shipping faster — here's what that means for your deadline'), offer a compressed format, and protect the champion cohort regardless of the program's fate",
+      rubric: "Correct answer: meet, listen, reframe, adapt, protect champions. Don't continue ignoring the organizational reality or accept full cancellation without advocacy. First move: 30-minute meeting to listen, not pitch. Reframe from 'investment in future capability' to 'current sprint throughput tool' — show week 1-2 data. Offer a compressed format (2 high-ROI sessions instead of 4) to show adaptability. Get a specific 30-day check-in date for after the deadline (don't accept 'we'll see'). Most important: give the champion cohort self-direction resources now so they continue regardless of program fate.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m15-q8",

@@ -229,12 +229,17 @@ Exit with a documented handoff: what was changed, what the metrics baselines are
     {
       id: "m13-q1",
       type: "conceptual",
-      text: "Explain the difference between inserting an agent into an existing workflow versus the agent-first redesign approach. Why does the default incremental approach systematically underdeliver, and what does the agent-first approach reveal that the incremental approach misses?",
-      rubric:
-        "Strong answer: incremental insertion: takes existing workflow as given, finds steps where an agent can assist — produces marginal improvements because the workflow structure was designed for human-speed constraints that no longer apply; agent-first redesign: starts with 'what if agents did everything they could?' and works backward to where human judgment is genuinely necessary — produces structural changes, collapses steps that were only separate because humans needed time to complete each one; what incremental misses: (1) adjacent steps that could be collapsed into a single agent task, (2) translation steps between steps that were necessary for human handoffs but are unnecessary for agent-to-human handoffs, (3) the opportunity to move quality checks left rather than keeping them at the end; what agent-first reveals: the distinction between steps that require human judgment and steps that are mechanical work dressed up as knowledge work; strong answers give a concrete example — e.g., a three-step ticket-to-PR-description process that was three separate human steps can become one agent task with one human review. Weak answer describes both approaches without explaining the mechanism of why one underdelivers.",
-      maxScore: 15,
-      placeholder:
-        "Contrast the two approaches, explain the mechanism of underdelivery in the incremental case, and give a concrete example of what agent-first reveals...",
+      text: "What is the fundamental problem with the incremental approach to agent integration — inserting agents into an existing workflow one step at a time?",
+      options: [
+        "The incremental approach is technically more complex than a full redesign because each step must be individually engineered to interface with the existing process",
+        "Incremental integration takes longer because each change requires separate stakeholder approval, delaying the full productivity benefit for months",
+        "The incremental approach takes the existing workflow as given — a structure designed for human-speed constraints that no longer apply — producing marginal improvements by missing opportunities to collapse adjacent steps and move quality checks left",
+        "Incremental integration creates compatibility problems because agents cannot reliably interface with human-designed processes without a full architectural redesign",
+      ],
+      correctAnswer: "The incremental approach takes the existing workflow as given — a structure designed for human-speed constraints that no longer apply — producing marginal improvements by missing opportunities to collapse adjacent steps and move quality checks left",
+      rubric: "Correct answer: the workflow structure itself is the problem. Incremental insertion preserves a structure designed for human-speed constraints — adjacent steps that were separate because humans needed time to complete each one could now be collapsed into a single agent task. The agent-first approach starts with 'agents do everything possible' and works backward to where human judgment is genuinely necessary, revealing the difference between steps requiring human judgment and mechanical work dressed up as knowledge work.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m13-q2",
@@ -249,12 +254,17 @@ Exit with a documented handoff: what was changed, what the metrics baselines are
     {
       id: "m13-q3",
       type: "applied",
-      text: "You've completed a successful 30-day pilot with 4 engineers on a team of 20. Cycle time in the pilot group improved by 30%. The engineering manager wants to roll out to the full team. The CTO wants to see the plan before approving. Write the pitch to the CTO: what does it cover, in what order, and how long does it take?",
-      rubric:
-        "Strong answer: structure (15 minutes total): (1) the finding (2 min) — state the result and the evidence clearly: 'Our 4-engineer pilot produced a 30% reduction in PR cycle time over 30 days. Here's what we measured and how.' Show the specific metrics, acknowledge what you can and can't attribute to the tool vs other factors. (2) the mechanism (3 min) — explain why it worked: what specific SDLC changes were made, where in the workflow the improvement was captured. This gives the CTO the ability to reason about whether the improvement will generalize. (3) the rollout plan (5 min) — specific steps, timeline, who's responsible, resource requirements (protected time? additional tooling licenses?), rollout sequence (which team next, what order); (4) the risk register (3 min) — what could go wrong in the rollout and the mitigation for each risk; the SDLC failure modes conversation belongs here; (5) the decision request (2 min) — specific ask: approval to proceed with team B starting [date], budget of [X], and executive messaging to the team that this is supported; pitch avoids: 'AI will revolutionize development,' velocity metrics, jargon; pitch includes: specific numbers, honest limitations, clear ask. Weak answer is generic or leads with the technology rather than the evidence.",
-      maxScore: 20,
-      placeholder:
-        "Write the pitch structure with timings, content of each section, and the specific ask at the end...",
+      text: "You present a 30-day pilot result (30% cycle time improvement in 4 engineers) to a CTO for rollout approval. The CTO asks: 'How do you know the improvement was caused by the tool and not by the fact that these 4 engineers were your most motivated people?' What is the best response?",
+      options: [
+        "Point out that a controlled trial with random assignment would have taken too long — the pilot data is the best available evidence and is directionally reliable enough to proceed",
+        "Acknowledge the confound directly: 'You're right that we can't fully separate tool effect from selection effect. Here's what we can attribute: the specific SDLC changes produced measurable improvements in review time that are mechanistic, not motivational. The rollout will tell us more.'",
+        "Explain that the 4 engineers were chosen specifically to represent the full range of the team's skill and motivation levels, so selection bias was controlled for",
+        "Propose running a second pilot with less motivated engineers before proceeding with the rollout to resolve the selection effect question",
+      ],
+      correctAnswer: "Acknowledge the confound directly: 'You're right that we can't fully separate tool effect from selection effect. Here's what we can attribute: the specific SDLC changes produced measurable improvements in review time that are mechanistic, not motivational. The rollout will tell us more.'",
+      rubric: "Correct answer: acknowledge the confound, then distinguish the mechanistic evidence. Don't dismiss the CTO's concern — it's legitimate. Acknowledge you can't fully separate tool effect from selection effect. But the SDLC changes (automated pre-review reducing review time, task specification reducing clarification cycles) produce improvements through mechanism, not motivation — those improvements are attributable regardless of who's doing the work. The rollout provides the larger sample to resolve the selection effect question.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m13-q4",
@@ -269,12 +279,17 @@ Exit with a documented handoff: what was changed, what the metrics baselines are
     {
       id: "m13-q5",
       type: "hands_on",
-      text: "Map the current-state workflow for a typical feature ticket at a mid-sized engineering team. The team has: Jira for tickets, GitHub for code, Slack for communication, a Jenkins CI pipeline, and a separate QA team. A feature ticket typically takes 8-10 days from start to merge. Produce a swim-lane map (in text format) that captures the actual workflow, marks the friction points, and estimates time at each step. Then design the future-state workflow using agent-first principles.",
-      rubric:
-        "Strong answer current-state swim-lane includes: engineer lane: pick up ticket (15 min), read ticket, identify ambiguity, message PM in Slack (30 min); PM lane: read message, respond (4 hrs wait); engineer: read clarification, check understanding of codebase by reading related files (45 min), create branch and implement (2-4 hrs), write tests (1 hr), create PR with description (30 min); review: PR sits in queue (4-12 hr wait); reviewer: review PR, leave comments (1 hr); engineer: read comments, address them (1-2 hrs); reviewer: re-review (30 min); QA: pick up approved PR, test in staging (2-3 day wait including queue); QA: manual regression (2 hrs); CI: run pipeline (45 min); friction points marked: clarification wait (4 hrs), review queue (4-12 hrs), QA queue (2 days); future-state: agent reads ticket and generates clarification questions upfront (5 min, human reviews), agent reads relevant codebase sections and generates implementation plan (15 min, human confirms), agent implements + writes tests (time varies, human reviews output), agent generates PR description from diff (5 min), automated pre-review runs before human reviewer sees it (30 min, automated), human reviewer reviews summary + flagged items only (30 min), agent generates QA test plan from acceptance criteria (10 min, QA uses as checklist). Total future-state cycle time estimate: 3-4 days. Weak answer describes the workflow in prose rather than mapping it with actors and handoffs.",
-      maxScore: 20,
-      placeholder:
-        "Produce the swim-lane map in text format with friction points and time estimates, then design the future-state workflow with the changes explained...",
+      text: "In a current-state swim-lane workflow map for a feature ticket, which type of activity most commonly accounts for the longest elapsed time but produces no direct value and is the primary target of agent-first redesign?",
+      options: [
+        "Implementation time — engineers spend the most time writing code, and agents can reduce this significantly by generating boilerplate and test stubs",
+        "Queue wait time — time when work sits idle waiting for the next person (review queue, QA queue, clarification wait) rather than active work being performed",
+        "Testing time — manual test execution is slow and can be replaced with automated agent-generated test suites that run continuously",
+        "Meeting time — status updates and standups account for the majority of engineering time without producing any code artifacts",
+      ],
+      correctAnswer: "Queue wait time — time when work sits idle waiting for the next person (review queue, QA queue, clarification wait) rather than active work being performed",
+      rubric: "Correct answer: queue wait time. In a typical 8-10 day feature cycle, the majority of elapsed time is work sitting idle: clarification wait (~4 hrs), review queue (~4-12 hrs), QA queue (~2 days). Active work time (implementation, testing, review itself) is a fraction of total elapsed time. Agent-first redesign targets queue time by eliminating clarification waits (agent generates questions upfront), reducing review queue time (automated pre-review), and compressing QA queue time (agent-generated test plans). Reducing implementation time gives diminishing returns compared to eliminating wait time.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m13-q6",
@@ -289,12 +304,17 @@ Exit with a documented handoff: what was changed, what the metrics baselines are
     {
       id: "m13-q7",
       type: "edge_case",
-      text: "You're two months into a workflow redesign engagement. The redesign is technically working — cycle time is down 25%, engineers are using the tools — but the engineering manager is now saying 'the agents are doing all the interesting work and my engineers are just doing review.' Two engineers have come to you privately saying they feel less engaged and are thinking about leaving. How do you handle this?",
-      rubric:
-        "Strong answer: recognizes this as a real problem, not just a change management concern; the engineers' concern is legitimate — if the workflow redesign has made their work feel mechanical, that's a design failure, not an adoption failure; the right response is not to revert the efficiency gains or tell engineers to feel better about review; investigation: what specifically feels mechanical? Is it that review tasks are too routine? That they're not doing any design or architecture work? That the types of problems they're solving have changed in a way that reduces professional challenge?; response options: (1) redesign the human-in-the-loop points to focus on higher-judgment tasks — if review is routine, the reviews should surface more interesting decisions; (2) explicitly create space for engineering initiative — if agents handle the mechanical implementation, engineers should be doing more architecture, design, and technical strategy; (3) use the efficiency gain to tackle more ambitious problems — if the team can ship 25% faster, what would they tackle that they previously didn't have capacity for?; the manager is partly right: if engineers are only doing review, the workflow has been over-automated and the human judgment role needs to be re-elevated; strong answers note that this is a design issue (wrong balance of agent vs human) not a motivation management issue. Weak answer dismisses the concern or says the engineers need to adapt.",
-      maxScore: 20,
-      placeholder:
-        "Diagnose what's actually wrong with the workflow design, describe your response to the engineers and manager, and redesign the human role...",
+      text: "Two months into a workflow redesign, cycle time is down 25% and tools are in use — but two engineers say they feel less engaged and are thinking about leaving because 'agents do all the interesting work.' What does this reveal about the workflow design?",
+      options: [
+        "This is a change management problem — engineers need time to adjust to new roles, and the SE should provide reassurance and coaching about the continued value of human judgment",
+        "The workflow has been over-automated — the human-in-the-loop points are now focused only on mechanical review rather than judgment, architecture, or design decisions, and the human role needs to be redesigned, not managed",
+        "The engineers' concern is illegitimate — productivity gains necessarily shift some skilled tasks to agents, and engineers who can't adapt will need to develop new skills to remain competitive",
+        "The rollout was too fast — a more gradual transition would have given engineers time to develop comfort with their new review-focused role before disengagement set in",
+      ],
+      correctAnswer: "The workflow has been over-automated — the human-in-the-loop points are now focused only on mechanical review rather than judgment, architecture, or design decisions, and the human role needs to be redesigned, not managed",
+      rubric: "Correct answer: over-automation is a design failure, not a motivation problem. If engineers are only doing review and it feels mechanical, the workflow has been designed wrong — human-in-the-loop points should concentrate human effort on judgment, architecture, and design decisions, not routine checking. The fix is to redesign the human role: elevate review to surface interesting decisions, explicitly create space for architecture and strategy work, use the 25% efficiency gain to tackle more ambitious problems that previously lacked capacity.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m13-q8",

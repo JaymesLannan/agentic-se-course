@@ -213,12 +213,17 @@ Week 4: metrics check-in with the engineering manager. Is the tool showing up in
     {
       id: "m14-q1",
       type: "conceptual",
-      text: "Explain why teaching agentic tools through observation and lecture is structurally insufficient, even when the demonstration is excellent. What is the specific cognitive process that needs to be developed and why observation alone cannot develop it?",
-      rubric:
-        "Strong answer: the cognitive process is calibration — developing specific, articulated beliefs about when to trust the tool's output and when to check or override it; observation doesn't develop calibration because calibration is built through first-person decisions and their outcomes, not through watching someone else make decisions; when you watch an expert, you see the decisions (choice of prompt, evaluation of output) but not the judgment process behind them — the expert makes it look natural and you can't decompose what you're seeing into transferable rules; additionally, the tool is nondeterministic — watching one session doesn't tell you what you'll see in your session; and the failure mode is non-obvious — agents produce confident wrong outputs that look correct, so you can't learn to spot failures by watching someone else run the tool; finally, observation produces vicarious confidence ('I've seen someone do this') which is psychologically similar to real confidence but doesn't transfer to actual performance. Weak answer says 'you learn by doing' without explaining the mechanism.",
-      maxScore: 15,
-      placeholder:
-        "Name the specific cognitive process, explain why it requires first-person experience, and describe the mechanism of failure in observation-based training...",
+      text: "Why is calibration — knowing when to trust an agentic tool's output and when to check or override it — a skill that cannot be developed through observation of an expert demonstration, even an excellent one?",
+      options: [
+        "Calibration requires understanding the tool's internal architecture, which can only be learned through technical documentation rather than demonstration",
+        "Observation develops vicarious confidence that feels like real confidence but doesn't transfer to performance, because calibration is built through first-person decisions and their outcomes — not through watching someone else make decisions; the tool's non-determinism means each session differs",
+        "Experts move too quickly during demonstrations for observers to absorb the decision-making process, so training needs to be significantly slowed down to be effective",
+        "Calibration is a personality trait rather than a learnable skill, so training can only filter for engineers who already have it rather than develop it in those who don't",
+      ],
+      correctAnswer: "Observation develops vicarious confidence that feels like real confidence but doesn't transfer to performance, because calibration is built through first-person decisions and their outcomes — not through watching someone else make decisions; the tool's non-determinism means each session differs",
+      rubric: "Correct answer: vicarious confidence vs real calibration. Watching an expert makes decisions look natural — you see the choice but not the judgment process behind it. The tool is non-deterministic, so watching one session doesn't prepare you for your session. Agents produce confident wrong outputs that look correct, so you can't learn to spot failures by watching. Calibration requires first-person experience of decisions and their outcomes — only then do you build specific, articulated beliefs about when to trust and when to check.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m14-q2",
@@ -233,12 +238,17 @@ Week 4: metrics check-in with the engineering manager. Is the tool showing up in
     {
       id: "m14-q3",
       type: "applied",
-      text: "You're running a 3-hour training session for 12 engineers at a fintech company. Halfway through the drive phase, the agent produces an output that is confidently wrong — it generates a test file that references a database table name that doesn't exist in their schema. Three engineers are looking at the output and one says, out loud, 'yeah, it just makes stuff up.' How do you handle this moment, and how does your handling of it change the learning trajectory for the rest of the session?",
-      rubric:
-        "Strong answer: immediately names the failure without apology or drama; validates the engineer's observation: 'You're right — it made an assumption about the schema rather than reading the actual schema. That's a real failure mode. Let's look at why it happened and what we can do about it.'; diagnoses out loud: 'What was in the prompt? Was the schema available for it to read? No — we didn't include it or point the agent at the schema file.'; fix: shows how to include the schema in context (add the schema file to context, or paste the relevant CREATE TABLE statement); extracts durable lesson: 'The rule of thumb here: whenever you're asking the agent to write code that touches your database, give it the schema. Without it, it guesses. With it, it's accurate.'; changes in session trajectory: the skeptic ('just makes stuff up') has now had their concern taken seriously and seen a principled response; the exercise now includes schema context as a required setup step; the failure becomes a lesson that advances everyone's calibration; the rest of the session includes a step where trainees deliberately omit context and observe the failure, then add context and observe the improvement; the contrast is the lesson. Weak answer apologizes, pivots quickly, or dismisses the comment.",
-      maxScore: 20,
-      placeholder:
-        "Describe your immediate response, the diagnostic process you run publicly, and how you restructure the rest of the session around this moment...",
+      text: "During a training session, the agent generates a test file referencing a database table that doesn't exist in the schema. An engineer says 'yeah, it just makes stuff up.' What is the highest-value response as the session facilitator?",
+      options: [
+        "Acknowledge the failure quietly and pivot quickly to maintain session momentum and prevent the group from losing confidence in the technology",
+        "Explain that this is an unusual occurrence — the agent normally has access to the schema and this failure won't appear in real-world usage",
+        "Immediately name the failure without drama, diagnose it publicly ('we didn't give it the schema — without it, it guesses'), fix it by adding schema context, extract the durable lesson, and restructure the exercise to include schema as a required setup step — turning the failure into the most valuable teaching moment of the session",
+        "Use this as an opportunity to explain the tool's limitations and recommend the team restrict usage to non-database-related tasks initially",
+      ],
+      correctAnswer: "Immediately name the failure without drama, diagnose it publicly ('we didn't give it the schema — without it, it guesses'), fix it by adding schema context, extract the durable lesson, and restructure the exercise to include schema as a required setup step — turning the failure into the most valuable teaching moment of the session",
+      rubric: "Correct answer: name, diagnose, fix, extract lesson — in public. Validate the engineer's concern: 'You're right — it assumed the schema rather than reading it.' Diagnose out loud: 'We didn't give it the schema — without it, it guesses.' Fix it live: add the schema to context. Extract the durable rule: 'When asking the agent to write code touching your database, always give it the schema.' The skeptic's concern has been taken seriously and answered; the failure becomes the session's highest-value calibration moment. Pivoting or dismissing wastes the teaching opportunity.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m14-q4",
@@ -253,12 +263,17 @@ Week 4: metrics check-in with the engineering manager. Is the tool showing up in
     {
       id: "m14-q5",
       type: "hands_on",
-      text: "Design a 3-hour training session for a team of 8 backend engineers (Java/Spring Boot, all experienced, none have used agentic tools before) who will be adopting Claude Code. Include: session objectives, the demo content and narration script highlights, the exercise design (with base track and extension), the debrief structure, and the follow-up plan.",
-      rubric:
-        "Strong answer: objectives — specific and measurable: 'By end of session, each engineer will have (1) completed one real task with Claude Code successfully, (2) identified one limitation in the tool through first-person experience, (3) committed to one specific task they'll try in their next sprint'; demo content — narrated, 15 minutes, shows: reading a Spring Boot service file and generating a test class for it, with narration on prompt decisions; extension on schema-aware code generation with narration on context management; exercise design — base track: take the last service they worked on, generate a test class, evaluate correctness, make one correction; extension track: generate an integration test that requires database context — requires them to figure out how to provide schema context themselves; exercises must run on their own machines with their own code; debrief — 4-question structure: what worked / what failed / what did you fix / what will you do differently; 10 minutes; follow-up plan: 24-hr personalized Slack message referencing something specific each person did; day 3 check-in on committed task; week 2 optional 30-minute group share-out; week 4 metrics review with EM. Weak answer designs a generic session without connecting to Java/Spring Boot context or provides no extension track.",
-      maxScore: 20,
-      placeholder:
-        "Design the complete 3-hour session with all five components specified for a Java/Spring Boot team...",
+      text: "In a 3-hour training session for engineers new to agentic tools, what is the primary design goal of the exercise phase?",
+      options: [
+        "Expose engineers to the maximum number of use cases in the time available so they understand the tool's full capability range before their first independent use",
+        "Develop calibration — specific, articulated beliefs about when to trust the tool and when not to — through first-person experience including both successes and managed failures on their own real code",
+        "Ensure every engineer completes the exercise successfully to build confidence before the session ends, preventing learned helplessness before independent use begins",
+        "Measure individual performance so managers can identify the engineers who will be the most productive early adopters of the new tooling",
+      ],
+      correctAnswer: "Develop calibration — specific, articulated beliefs about when to trust the tool and when not to — through first-person experience including both successes and managed failures on their own real code",
+      rubric: "Correct answer: develop calibration through first-person experience. The exercise phase's goal is not coverage, not confidence from success alone, and not assessment. It's calibration — the specific skill of knowing when to trust the output and when to check it. This requires both successes (to build appropriate trust) and managed failures (to build evaluation skill). Generic exercises on toy code don't develop calibration; exercises on the engineer's own real code do, because they can evaluate the output's correctness against their domain knowledge.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m14-q6",
@@ -273,12 +288,17 @@ Week 4: metrics check-in with the engineering manager. Is the tool showing up in
     {
       id: "m14-q7",
       type: "edge_case",
-      text: "You're 45 minutes into a training session when the agent's MCP server goes down — Claude Code can no longer access the codebase. You have 8 engineers, 1.5 hours left, and a session plan that is entirely hands-on. What do you do?",
-      rubric:
-        "Strong answer: doesn't panic or apologize excessively; checks quickly whether the issue is recoverable in 5 minutes (restart the MCP server, check connectivity) — if yes, fix it; if not, pivot immediately; the pivot plan: the failure is itself teachable — briefly name what happened ('the MCP server is the component that gives Claude access to your codebase; when it goes down, it falls back to conversation-only mode'); pivot the exercise to something that works without the MCP: prompt engineering with pasted code (copy a function from their codebase and paste it into the context); this teaches the fallback mode engineers will need when MCP is unavailable; alternatively: use the time for a structured discussion exercise — each engineer identifies three tasks in their current sprint and categorizes them: high/medium/low agent-suitability, with justification; this develops the meta-skill of knowing when to use the tool; closes the session with the insight: 'Part of working with agentic tools is knowing the failure modes and their recovery paths — you've now seen one live'; follow up with a second session when the infrastructure is back. Strong answers treat the failure as curriculum, not as an obstacle. Weak answer says 'reschedule the session' or tries to continue with a broken environment.",
-      maxScore: 20,
-      placeholder:
-        "Describe your immediate response, your pivot plan, what you teach from the failure, and how you close the session...",
+      text: "45 minutes into a training session, the agent's MCP server goes down and Claude Code can no longer access the codebase. You have 8 engineers and 1.5 hours remaining. What is the best pivot?",
+      options: [
+        "End the session early and reschedule for when the infrastructure is working — a broken environment cannot produce useful learning outcomes",
+        "Continue as planned using screenshots of expected outputs, narrating what the agent would have done, so the session stays on its original schedule",
+        "Pivot to either prompt engineering with pasted code (the fallback mode engineers will need when MCP is unavailable) or a structured exercise where engineers categorize their current sprint tasks by agent-suitability — and name the failed MCP as a teaching moment about failure modes and recovery paths",
+        "Use the remaining time for open Q&A about the tool based on what engineers saw in the first 45 minutes",
+      ],
+      correctAnswer: "Pivot to either prompt engineering with pasted code (the fallback mode engineers will need when MCP is unavailable) or a structured exercise where engineers categorize their current sprint tasks by agent-suitability — and name the failed MCP as a teaching moment about failure modes and recovery paths",
+      rubric: "Correct answer: pivot and teach from the failure. Check for a quick fix first (5 min max). If not recoverable, pivot to: (a) prompt engineering with pasted code — teaches the fallback mode engineers will need in real work when MCP is unavailable, or (b) task categorization exercise — each engineer identifies high/medium/low agent-suitability tasks in their current sprint, developing the meta-skill of knowing when to use the tool. Close with: 'Part of working with agentic tools is knowing failure modes and recovery paths — you've just seen one live.' Rescheduling wastes 1.5 hours of learning opportunity.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m14-q8",

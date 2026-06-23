@@ -187,12 +187,17 @@ A healthy practice is getting better. It's delivering more confidently in areas 
     {
       id: "m17-q1",
       type: "conceptual",
-      text: "Explain the six-stage flywheel model in full. Then identify which stage is most commonly skipped in practices that exist for several years without compounding value, and explain mechanically why that stage is the one that fails.",
-      rubric:
-        "Strong answer: stages in full: (1) individual insight — SE encounters something in an engagement; (2) pattern — insight examined for recurrence, validated as a pattern; (3) playbook entry — pattern documented in five-component format; (4) training material — entry translated for new SE onboarding and client training; (5) engagement template — clusters of entries become starting points for new engagements; (6) faster delivery → more insights — templates make delivery more efficient, generating more engagements and more insights; most commonly skipped: Stage 3, the playbook entry, not because SEs are lazy but because there's no structural incentive to write it and the cost is immediate while the benefit is future; Stage 2 also commonly fails — SEs don't do the validation work of checking whether their insight is a pattern (two-instance rule); mechanical explanation of why Stage 3 fails: client work is visible and immediately rewarded; playbook entries are invisible and rewarded indirectly through future engagements that the contributing SE may not even work on; this creates an incentive structure where the rational behavior is to not contribute, especially when under client delivery pressure; practices that succeed at Stage 3 have made contribution visible and recognized — through contribution tracking, through public acknowledgment, through advancement criteria that include practice contribution. Weak answer describes the flywheel without identifying the skip pattern or the mechanism.",
-      maxScore: 15,
-      placeholder:
-        "Walk through all six stages and identify the most skipped stage with a specific explanation of the incentive mechanism behind the failure...",
+      text: "In the six-stage practice flywheel (insight → pattern → playbook entry → training material → engagement template → faster delivery), which stage is most commonly skipped in practices that exist for years without compounding value, and what is the primary reason it fails?",
+      options: [
+        "Stage 1 (individual insight) — SEs are too focused on client delivery to notice patterns in their own engagements, so insights never form in the first place",
+        "Stage 4 (training material) — translating playbook entries into training content requires pedagogical skills most SEs don't have, creating a skills bottleneck",
+        "Stage 3 (playbook entry) — client work is visible and immediately rewarded while playbook contribution is invisible and rewarded indirectly through future engagements the contributing SE may not work on, creating a rational incentive to not contribute under delivery pressure",
+        "Stage 6 (faster delivery → more insights) — as practices mature, delivery becomes so efficient that engagements are shorter and produce fewer novel situations for pattern generation",
+      ],
+      correctAnswer: "Stage 3 (playbook entry) — client work is visible and immediately rewarded while playbook contribution is invisible and rewarded indirectly through future engagements the contributing SE may not work on, creating a rational incentive to not contribute under delivery pressure",
+      rubric: "Correct answer: Stage 3, the playbook entry. Not because SEs are lazy — because the incentive structure is wrong. Client work is immediately visible and rewarded; playbook entries are invisible and the benefit accrues to future engagements the contributor may never work on. Under delivery pressure, the rational behavior is to prioritize client work. Practices that succeed at Stage 3 make contribution visible (tracking, public acknowledgment, advancement criteria) and protect time for it structurally — not by asking harder.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m17-q2",
@@ -207,12 +212,17 @@ A healthy practice is getting better. It's delivering more confidently in areas 
     {
       id: "m17-q3",
       type: "applied",
-      text: "You're the most senior SE in a practice that has grown from 1 to 5 SEs over the past year. The three most recently hired SEs are all excellent at client delivery but have not submitted a single playbook entry in 6 months. The practice lead is considering making playbook contribution a performance metric. You think this is the wrong approach. Why, and what do you recommend instead?",
-      rubric:
-        "Strong answer: why metrics-based contribution is wrong: it treats contribution as a compliance behavior rather than a practice norm; metrics-driven contribution produces quantity over quality — SEs will submit thin, low-value entries to hit their numbers; it creates resentment (another performance hurdle on top of client delivery pressure) rather than intrinsic motivation; it doesn't address the root cause, which is almost certainly structural (no time protected for contribution, no recognition for it, no visible impact from previous contributions); what to recommend instead: (1) investigate the root cause first — are the three SEs at 100% client utilization? (almost certainly yes); if so, the capacity isn't there to contribute regardless of incentives or penalties; (2) protect time structurally — two hours per week, blocked on the calendar, not client-facing; this is a capacity decision, not a motivation decision; (3) make contribution visible and immediately rewarding — when a new SE uses a playbook entry that an existing SE wrote, tell the author; make the connection between contribution and client success explicit; (4) collaborative contribution as part of engagement cadence — end-of-engagement retrospective (30 min) that produces a draft playbook entry as output; the draft gets polished later but the raw material is created together, reducing the solo contribution burden; (5) model it — the senior SE should contribute visibly and talk about it, not just expect others to; strong answers also note that a single metric will produce gaming behavior. Weak answer supports the metrics approach or says 'just tell them it's important.'",
-      maxScore: 20,
-      placeholder:
-        "Explain why the metrics approach produces the wrong behavior, identify the likely root causes, and recommend specific structural interventions...",
+      text: "A practice lead wants to make playbook contribution a performance metric after 3 new SEs submitted zero entries in 6 months. Why is this the wrong intervention, and what should be investigated first?",
+      options: [
+        "Performance metrics are always demotivating for creative work — the practice lead should use extrinsic rewards (bonuses, recognition programs) instead to incentivize contribution",
+        "The metric is wrong because it treats contribution as compliance rather than a practice norm, and metrics-driven contribution produces thin, low-value entries to hit numbers — the root cause is almost certainly that SEs are at 100% client utilization with no capacity to contribute, which a metric doesn't fix",
+        "Making contribution a performance metric is fine, but the threshold should be set very low (one entry per quarter) to avoid undue pressure during high-utilization periods",
+        "The real problem is that the playbook isn't visible enough — SEs don't see others reading and using their entries, so the solution is a better playbook interface rather than performance pressure",
+      ],
+      correctAnswer: "The metric is wrong because it treats contribution as compliance rather than a practice norm, and metrics-driven contribution produces thin, low-value entries to hit numbers — the root cause is almost certainly that SEs are at 100% client utilization with no capacity to contribute, which a metric doesn't fix",
+      rubric: "Correct answer: diagnose capacity first, then address structure. Investigate: are the three SEs at 100% client utilization? Almost certainly yes — if capacity isn't there, no metric fixes it. Metrics-driven contribution produces gaming (thin entries to hit numbers), not quality. The right interventions: (1) protect 2 hrs/week structurally on the calendar; (2) make contribution visible — tell authors when others use their entries; (3) build contribution into engagement cadence (end-of-engagement retrospective produces a draft entry); (4) model it visibly as the senior SE. The problem is structural, not motivational.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m17-q4",
@@ -227,12 +237,17 @@ A healthy practice is getting better. It's delivering more confidently in areas 
     {
       id: "m17-q5",
       type: "hands_on",
-      text: "Design a 'practice health dashboard' for an agentic SE practice with 8 SEs. Include: 5 leading indicators with specific measurement methods and target values, 3 lagging indicators with appropriate caveats about their limitations, and a decision framework for what to do when a leading indicator goes red.",
-      rubric:
-        "Strong answer leading indicators: (1) playbook coverage rate — % of distinct engagement situations in the past quarter that had a relevant playbook entry; measured by: engagement reports cite which playbook entry they used (or 'none applicable'); target: >70%; (2) new SE ramp time — time from hire to first independently-delivered engagement rated as 'competent' by the client; measured by: engagement outcome ratings and SE self-assessment; target: decreasing quarter-over-quarter; (3) pattern reuse rate — average number of engagements per playbook entry in the past quarter; measured by: engagement reports; target: >2 per entry (if significantly lower, entries may be too specific to one engagement; if much higher, entries may be too generic); (4) contribution rate — % of SEs who submitted at least 1 polished playbook entry in the quarter; target: 80%; note: quantity threshold should be low to avoid gaming; (5) weekly pattern log completion — % of SEs who submitted a weekly pattern log during active engagements; target: 100%; leading indicator for future contributions; lagging indicators with caveats: (1) client outcome metrics (SDLC improvement, adoption rate) — the ultimate test but lags by 6+ months after practice changes; caveat: influenced by client factors outside the practice's control; (2) engagement repeat rate — clients who engage again; caveat: influenced by budget and timeline factors; (3) referral rate — clients who refer; caveat: long lag time, influenced by client network; when a leading indicator goes red: for coverage rate: run engagement-pattern matching retrospective, identify uncaptured patterns; for ramp time increase: review onboarding curriculum, pair new SEs with experienced ones; for contribution rate drop: investigate capacity first (utilization), then incentive structure; for log completion drop: check for unprotected time (engagements at >90% utilization); dashboard reviewed monthly by practice lead. Weak answer uses only lagging indicators or doesn't include measurement methods.",
-      maxScore: 20,
-      placeholder:
-        "Design the complete 5+3 indicator dashboard with measurement methods, targets, and the red-indicator decision framework...",
+      text: "Which type of indicator is most valuable as an early warning system for practice health problems, and why should lagging indicators not be the primary focus of a practice health dashboard?",
+      options: [
+        "Lagging indicators (client NPS, repeat engagement rate) are most valuable because they reflect actual outcomes; leading indicators can be gamed and don't reliably predict client satisfaction",
+        "Leading indicators (playbook coverage rate, new SE ramp time, pattern reuse rate) are most valuable because they show the health of the mechanisms that produce outcomes — by the time lagging indicators signal a problem, the opportunity to intervene has passed",
+        "Both types are equally important and should receive equal weight — a dashboard should display leading and lagging indicators side by side without prioritizing either",
+        "Usage metrics (how often SEs consult the playbook) are the most important indicators because they directly measure whether practice infrastructure is being actively used",
+      ],
+      correctAnswer: "Leading indicators (playbook coverage rate, new SE ramp time, pattern reuse rate) are most valuable because they show the health of the mechanisms that produce outcomes — by the time lagging indicators signal a problem, the opportunity to intervene has passed",
+      rubric: "Correct answer: leading indicators for early warning. Leading indicators (playbook coverage rate, ramp time, contribution rate, pattern reuse rate, weekly pattern log completion) show the health of the mechanisms that produce client outcomes. By the time lagging indicators (NPS, repeat engagement rate, referrals) signal a problem, you're months behind — the problem has already compounded. Leading indicators let you intervene early: coverage rate drops → run pattern-matching retrospective; ramp time increases → review onboarding; contribution rate drops → investigate utilization and capacity.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m17-q6",
@@ -247,12 +262,17 @@ A healthy practice is getting better. It's delivering more confidently in areas 
     {
       id: "m17-q7",
       type: "edge_case",
-      text: "Your practice has been running for three years and the flywheel is working well — playbook is strong, ramp time is fast, delivery is reliable. But you notice a cultural shift: SEs have stopped being surprised. New client situations are being mapped to existing patterns quickly, sometimes too quickly. One new SE has mentioned that she feels like 'every problem is just a version of something we've already seen.' Is this a good sign, a bad sign, or both? What does it tell you about where the practice is in its maturity, and what do you do with this observation?",
-      rubric:
-        "Strong answer: it's both a good sign and a warning sign; good sign: the flywheel has worked — the practice has accumulated enough pattern coverage that new SEs arrive to a mature taxonomy that makes sense of most situations quickly; the goal of the flywheel was to make the practice more confident in familiar territory; warning sign: premature closure — mapping a new situation to an existing pattern without adequately testing whether the situation is actually an instance of that pattern; the 'context conditions' check is being skipped; the new SE's comment ('every problem is a version of something we've already seen') is either (a) accurate — the practice has genuinely mapped the domain well, or (b) a sign that situational analysis is becoming superficial; what it tells you about maturity: this is a characteristic of a mature practice entering a risk zone; the risk is that the playbook becomes a cage rather than a scaffold — limiting perception of genuinely novel situations; what to do: (1) add a 'pattern challenge' step to the engagement process — before applying a pattern, the SE must articulate 'what specific conditions here differ from the typical case, and do those differences matter?'; (2) institutionalize a 'novel situation' flag — when an SE notices something genuinely new, there's a specific process to explore it rather than defaulting to the closest existing pattern; (3) recognize the new SE's observation as healthy intellectual skepticism — don't dismiss it; (4) check the engagement reports for pattern mismatch signals (approaches applied from the playbook that required more adaptation than expected). Strong answers treat this as a signal to evolve the practice, not as a problem to be solved or a success to be celebrated uncritically. Weak answer says this is only a good sign.",
-      maxScore: 20,
-      placeholder:
-        "Explain why it's both a good and bad sign, what it reveals about practice maturity, and what structural changes you make in response...",
+      text: "After three years of successful flywheel operation, a new SE observes that 'every problem is just a version of something we've already seen.' This is simultaneously a good and bad sign. What specific risk does it signal, and what structural change addresses it?",
+      options: [
+        "The risk is that the practice has over-standardized — too many playbook entries make creative judgment impossible. The fix is to archive any entry not used in the past year to reduce the playbook's prescriptive weight",
+        "The risk is premature closure — new situations are being mapped to existing patterns too quickly without testing whether context conditions actually match. The fix is to add a 'pattern challenge' step requiring SEs to articulate what specifically differs from the typical case before applying any pattern",
+        "The risk is complacency — SEs are relying on the playbook instead of developing new skills. The fix is to stop playbook contributions for 6 months so SEs are forced to develop novel approaches independently",
+        "The risk is irrelevant — 'every problem looks like a version of something we've seen' is exactly the intended outcome of three years of flywheel operation and requires no structural intervention",
+      ],
+      correctAnswer: "The risk is premature closure — new situations are being mapped to existing patterns too quickly without testing whether context conditions actually match. The fix is to add a 'pattern challenge' step requiring SEs to articulate what specifically differs from the typical case before applying any pattern",
+      rubric: "Correct answer: premature closure, fixed by pattern challenge. Good sign: the flywheel worked — the practice accumulated enough coverage that most situations map quickly. Bad sign: the context conditions check is being skipped; the playbook is becoming a cage rather than a scaffold. The structural fix: before applying any pattern, the SE must articulate 'what specific conditions here differ from the typical case, and do those differences matter?' Also: institutionalize a 'novel situation' flag for genuinely new situations, rather than defaulting to the closest existing pattern. Treat the new SE's observation as healthy skepticism, not a success to uncritically celebrate.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m17-q8",

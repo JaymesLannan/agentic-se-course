@@ -212,12 +212,18 @@ If the engineer drives away from the session and does nothing different, the ses
     {
       id: "m10-q1",
       type: "conceptual",
-      text: "Why is the 'facilitator, not driver' principle so important in pairing sessions, and what is the specific failure mode that happens when an SE takes over the keyboard?",
+      text: "What is the primary failure mode that occurs when an SE takes over the keyboard and drives the majority of a pairing session?",
+      options: [
+        "The session runs too slowly because the SE is unfamiliar with the engineer's specific codebase",
+        "The engineer observes competence being performed but develops no capability of their own, resulting in no behavior change",
+        "The engineer loses trust in the tool after seeing the SE make prompting mistakes",
+        "The session covers too many features at once, leaving the engineer confused about where to start",
+      ],
+      correctAnswer: "The engineer observes competence being performed but develops no capability of their own, resulting in no behavior change",
       rubric:
-        "Strong answer: when the SE drives, the engineer is a passive observer — they watch competence being performed but don't develop their own; behavior change requires first-person experience, not observation; the specific failure mode is the 'great demo, no adoption' pattern — the session looks successful but nothing changes in the engineer's workflow; it also reinforces the engineer's position as a consumer of AI output rather than an active user; strong answers will also note the psychological dimension — people trust their own experience more than demonstrations. Weak answer says 'the engineer needs to learn by doing' without explaining the mechanism of why observation doesn't transfer.",
-      maxScore: 15,
-      placeholder:
-        "Explain the facilitator principle, the mechanism behind it, and the specific failure mode when violated...",
+        "Correct answer: 'The engineer observes competence being performed but develops no capability of their own, resulting in no behavior change'. Behavior change requires first-person experience, not observation. The SE driving produces the 'great demo, no adoption' pattern — the session looks successful but nothing changes in the engineer's workflow afterwards.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m10-q2",
@@ -232,12 +238,18 @@ If the engineer drives away from the session and does nothing different, the ses
     {
       id: "m10-q3",
       type: "applied",
-      text: "You're pairing with a senior backend engineer, 12 years of experience, who has been vocal in the pre-session Slack thread about being skeptical of AI tools. Twenty minutes into the session, after you've demo'd generating a database migration script, she says: 'That's fine, but I could write that migration in the time it took to write that prompt.' How do you respond in the moment, and how does this change your plan for the remaining 70 minutes?",
+      text: "A senior engineer says 'I could write that migration in the time it took to write that prompt.' What is the most effective immediate response?",
+      options: [
+        "Argue that the AI-generated output was higher quality than what they would have written, justifying the extra time",
+        "Agree they're probably right for this specific task, then pivot to a context-heavy task from their backlog where the time advantage is unambiguous",
+        "Show a faster prompting technique to demonstrate that the tool can match their speed",
+        "Acknowledge the concern and wrap up the session early to avoid further friction",
+      ],
+      correctAnswer: "Agree they're probably right for this specific task, then pivot to a context-heavy task from their backlog where the time advantage is unambiguous",
       rubric:
-        "Strong answer: does not argue or defend; agrees with the speed comparison as probably accurate for this specific task; pivots to where the speed argument doesn't hold — tasks requiring large context windows, cross-file analysis, tasks with high repetition but low cognitive value; changes the plan to find a task from her actual backlog that meets these criteria (a refactor touching 20 files, investigating a performance regression across multiple services, generating docs from a codebase she hasn't worked in before); makes her the judge — 'you tell me whether it saved time' — removes the SE from the position of advocate; also notes that the 70-minute plan should now weight toward more complex tasks, not more demonstrations of straightforward ones. Weak answer tries to argue that the demo was actually faster, or pivots to a different simple demo.",
-      maxScore: 20,
-      placeholder:
-        "Describe your immediate response and how you adapt the remaining session plan...",
+        "Correct answer: 'Agree they're probably right for this specific task, then pivot to a context-heavy task from their backlog where the time advantage is unambiguous'. Never argue about speed on a simple task — the engineer is probably right. The SE's job is to find the task category (large context, cross-file analysis, repetitive work) where the calculus genuinely flips.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m10-q4",
@@ -252,12 +264,18 @@ If the engineer drives away from the session and does nothing different, the ses
     {
       id: "m10-q5",
       type: "hands_on",
-      text: "Design a complete 90-minute pairing session agenda for a mid-level frontend engineer (3 years React experience) who uses GitHub Copilot for autocomplete but has never used Claude Code. Their current sprint includes: (1) adding form validation to a checkout flow, (2) writing unit tests for a recently refactored cart component, (3) investigating a subtle re-render bug reported in production. Structure the session with timings, what you'll demo, what they'll drive, and how you'll handle the debrief.",
+      text: "For a developer who uses GitHub Copilot but has never used Claude Code, which task type should be prioritized for the first live demonstration?",
+      options: [
+        "A simple autocomplete task to show the overlap with their existing Copilot workflow and build familiarity",
+        "The most technically complex task in their sprint to show Claude's full ceiling of capability",
+        "A context-heavy multi-file investigation that clearly shows agentic behavior Copilot cannot replicate",
+        "A greenfield feature written from scratch to demonstrate end-to-end code generation",
+      ],
+      correctAnswer: "A context-heavy multi-file investigation that clearly shows agentic behavior Copilot cannot replicate",
       rubric:
-        "Strong answer: opens with discovery (5 min) to learn their priorities before deciding which tasks to tackle first; identifies the re-render investigation as the highest-value demo target (context-heavy, requires reading multiple files, benefits most from agent vs autocomplete); sequences from lower complexity (validation) to higher (bug investigation); demo-then-drive on each task; allocates more time to the debugging task because it best illustrates the difference from Copilot; debrief includes three specific questions (what surprised you / where did it fall short / what will you use this for); ends with one concrete next step (not 'explore it' but a specific task in their sprint); builds in buffer for failure recovery; notes when to hand the keyboard and when to narrate. Weak answer is generic, doesn't connect the session design to the specific tasks listed, or has the SE driving for most of it.",
-      maxScore: 20,
-      placeholder:
-        "Write the full 90-minute agenda with timings, task assignments, and debrief structure...",
+        "Correct answer: 'A context-heavy multi-file investigation that clearly shows agentic behavior Copilot cannot replicate'. The goal of the first demo is to break the mental model that Claude Code is 'just better autocomplete'. A multi-file investigation creates a visible, visceral difference. Starting with autocomplete (option 1) reinforces the wrong model; the most complex task (option 2) risks failure before trust is established.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m10-q6",
@@ -272,12 +290,18 @@ If the engineer drives away from the session and does nothing different, the ses
     {
       id: "m10-q7",
       type: "edge_case",
-      text: "You're running a pairing session with an engineer who seems engaged and is driving well. Twenty minutes in, their manager joins unexpectedly and starts asking questions — shifting the dynamic from pairing to a live demo for a manager who wants to understand the ROI. How do you handle the triangulated dynamic, and what do you do to get the session back to what the engineer needs?",
+      text: "A manager joins an in-progress pairing session unexpectedly and starts asking ROI questions. What is the most important principle to maintain?",
+      options: [
+        "Immediately pivot to a formal product demo to make the best use of the manager's limited time",
+        "Defer entirely to the manager's agenda and reschedule the pairing session for another day",
+        "Briefly address the manager's questions, then redirect back to keeping the engineer in the driver's seat",
+        "Continue the session exactly as planned and do not acknowledge the manager's questions until it is over",
+      ],
+      correctAnswer: "Briefly address the manager's questions, then redirect back to keeping the engineer in the driver's seat",
       rubric:
-        "Strong answer recognizes the dynamic shift: the engineer now has an audience, which changes their behavior (more self-conscious, less likely to try things that might fail, more likely to defer to the SE); the manager is optimizing for justification, not learning; short-term: acknowledge the manager's interest, offer to answer their specific questions briefly and then return to the hands-on work; if the manager stays, reframe the session for them — 'what you're seeing is [engineer name] learning to use this tool; the best way to see the ROI is to watch this part'; consider privately suggesting a separate 15-minute exec briefing to the manager so the engineer gets their learning time; longer-term: in future engagements, guard pairing time explicitly by setting expectations with stakeholders before the session. Weak answer either ignores the manager or completely pivots the session to serve the manager at the expense of the engineer.",
-      maxScore: 20,
-      placeholder:
-        "Describe how you handle the immediate dynamic and how you protect the session's original purpose...",
+        "Correct answer: 'Briefly address the manager's questions, then redirect back to keeping the engineer in the driver's seat'. The engineer's learning time is the purpose of the session. Pivoting to a demo (option 1) serves the manager at the expense of the engineer's development. Rescheduling (option 2) wastes the session entirely. Ignoring the manager (option 4) creates unnecessary friction. The right move threads the needle: acknowledge, address briefly, then protect the session.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m10-q8",

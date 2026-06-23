@@ -211,12 +211,17 @@ The difference is not the tools — it's whether the SDLC was redesigned to acco
     {
       id: "m12-q1",
       type: "conceptual",
-      text: "Explain the core dynamic that causes SDLC failure when agentic tools are introduced without SDLC redesign. Why do standard velocity metrics (story points, commits per day, lines of code) fail to reveal the breakdown?",
-      rubric:
-        "Strong answer: the core dynamic is a throughput mismatch — agentic tools accelerate code generation but leave all downstream processes (review, QA, deployment) sized for the old production rate; code accumulates in the pipeline rather than shipping; standard velocity metrics measure the input side of the SDLC (code produced, tickets closed) not the output side (code that safely ships); they will show increasing velocity even as cycle times lengthen, rework rates rise, and code quality degrades; the dangerous pattern is that the team looks productive by all traditional measures while actually accumulating technical debt and latent bugs; the metrics that reveal the breakdown are downstream: cycle time, rework rate, incidents caused by merged code, review thoroughness; strong answers also note that agents make the input cheap, which means the old constraints are inverted — the constraint is now in the verification, not the generation. Weak answer describes the failure modes without explaining why standard metrics don't catch them.",
-      maxScore: 15,
-      placeholder:
-        "Explain the core throughput mismatch and why traditional velocity metrics are blind to the resulting breakdown...",
+      text: "When agentic tools are introduced without SDLC redesign, standard velocity metrics (story points, commits per day) continue to look strong even as the team's SDLC breaks down. Why?",
+      options: [
+        "Velocity metrics are measured by the development team and are susceptible to manipulation when teams feel pressure to appear productive with new tools",
+        "Velocity metrics measure the input side of the SDLC (code produced, tickets closed) rather than the output side (code that safely ships), so they improve as agents accelerate code generation while downstream bottlenecks grow",
+        "Velocity metrics are designed for waterfall processes and never accurately reflected agile team performance, regardless of whether agentic tools are in use",
+        "Management teams stop trusting velocity metrics when they see increasing incidents, causing the metrics to lose predictive value before teams can address underlying issues",
+      ],
+      correctAnswer: "Velocity metrics measure the input side of the SDLC (code produced, tickets closed) rather than the output side (code that safely ships), so they improve as agents accelerate code generation while downstream bottlenecks grow",
+      rubric: "Correct answer: input vs output measurement gap. Agents accelerate code generation (input) but leave review, QA, and deployment (output) sized for the old rate. Velocity metrics measure the input side, so they look great even as cycle times lengthen, rework rates rise, and quality degrades. The metrics that reveal breakdown are downstream: cycle time, rework rate, incidents per release. Agents invert the old constraint — the bottleneck moves from generation to verification.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m12-q2",
@@ -231,12 +236,17 @@ The difference is not the tools — it's whether the SDLC was redesigned to acco
     {
       id: "m12-q3",
       type: "applied",
-      text: "A client engineering team has been using Claude Code for 6 weeks. Sprint velocity is up 40%. But the CTO is worried: PR cycle time has gone from 2 days to 5 days, there were three production incidents in the last two weeks that were traced back to agent-generated code that 'looked fine in review,' and the two senior engineers who do most of the reviewing say they feel more overwhelmed than ever. Which failure modes are present, how are they interacting, and what do you fix first?",
-      rubric:
-        "Strong answer identifies: (1) speed/QA mismatch — 40% velocity increase hit a review pipeline that wasn't scaled; (2) review bottleneck — two senior engineers reviewing all of it; (3) likely context loss or scope drift — incidents traced to agent code that 'looked fine' suggests something correct in isolation but wrong in the system; the failure modes interact: increased throughput → review queue grows → reviewers under pressure → shallower reviews → incidents; the overwhelmed reviewers are a symptom of the bottleneck pattern compounded by the mismatch; what to fix first: the review bottleneck is the critical path — can't fix QA mismatch without increasing review capacity; immediate: implement automated pre-screening (linting, tests, AI-assisted review summary) so human review time is focused on judgment not mechanical checking; parallel: investigate the three incidents for root cause — are they context loss (incompatible implementations), scope drift (unexpected behavior), or inadequately tested generated code?; then: distribute the review load and implement PR size limits. Weak answer lists the failure modes without showing how they interact or prioritizing the fix sequence.",
-      maxScore: 20,
-      placeholder:
-        "Identify the failure modes, explain how they're compounding, and sequence the remediation...",
+      text: "A team has used Claude Code for 6 weeks. Velocity is up 40%, but PR cycle time went from 2 to 5 days, 3 production incidents were traced to agent-generated code, and the 2 senior engineers doing most reviews feel overwhelmed. Which failure mode is the critical path bottleneck that must be fixed first?",
+      options: [
+        "Context loss — the incidents were caused by agent sessions lacking architectural context, so a CLAUDE.md needs to be created before anything else",
+        "Speed/QA mismatch — the 40% velocity increase must be rolled back to match the review pipeline's original capacity",
+        "The review bottleneck — two senior engineers reviewing everything is the critical path; fixing automated pre-screening and review distribution unblocks the other failure modes",
+        "Scope drift — agents are implementing beyond their task specification, so all tasks need stricter scope boundaries before other fixes are applied",
+      ],
+      correctAnswer: "The review bottleneck — two senior engineers reviewing everything is the critical path; fixing automated pre-screening and review distribution unblocks the other failure modes",
+      rubric: "Correct answer: review bottleneck is the critical path. The failure modes interact — 40% velocity increase hit an unscaled review pipeline → queue grows → reviewers under pressure → shallower reviews → incidents. You cannot fix the QA mismatch without first increasing review capacity. Immediate fix: automated pre-screening (linting, tests, AI-assisted review summary) so human review focuses on judgment, not mechanical checking. Then distribute review load and implement PR size limits. Investigate the incidents in parallel to determine whether they're context loss or scope drift.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m12-q4",
@@ -251,12 +261,17 @@ The difference is not the tools — it's whether the SDLC was redesigned to acco
     {
       id: "m12-q5",
       type: "hands_on",
-      text: "Design a 'scope confirmation protocol' — a structured interaction between an engineer and an agent at the start of every implementation task. Include: the input format (what the engineer provides), the agent's output format (what it produces for confirmation), what the engineer must confirm before the agent proceeds, and how this protocol handles the situation where the agent identifies something important that's genuinely out of scope for this task but shouldn't be ignored.",
-      rubric:
-        "Strong answer: input format includes: task title, user story, acceptance criteria (testable), explicit scope boundary ('out of scope: X, Y'), links to relevant ADRs or CLAUDE.md sections; agent output format includes: (a) 'I will implement:' — specific list of changes with files to be modified; (b) 'Assumptions I'm making:' — explicit list of assumptions; (c) 'Questions that would change my approach:' — things the engineer should confirm; (d) 'Out of scope items I noticed:' — adjacent issues flagged but not implemented, with recommendation to create a follow-up ticket; engineer confirmation step: the engineer must explicitly confirm or correct each assumption before the agent writes a line of code; how it handles out-of-scope findings: the agent creates a structured note (not a jira ticket automatically — it lacks permission and context) with: what it noticed, why it matters, suggested priority, and defers to the engineer to decide; strong answers also note that this protocol adds ~5 minutes per task and prevents hours of rework — the ROI is clear. Weak answer describes the concept without specifying the input/output formats or the out-of-scope handling mechanism.",
-      maxScore: 20,
-      placeholder:
-        "Design the complete protocol with input format, output format, confirmation steps, and out-of-scope handling...",
+      text: "In a scope confirmation protocol between an engineer and an agent at the start of an implementation task, what must the agent produce before writing any code?",
+      options: [
+        "A time estimate for the task and a list of files it plans to create, so the engineer can approve the plan before reviewing the implementation",
+        "An explicit list of what it will implement, what assumptions it is making, questions that would change its approach, and out-of-scope items it noticed — with the engineer confirming each assumption before code is written",
+        "A confidence score for each component of the task, so the engineer knows which parts of the implementation to review most carefully",
+        "A summary of the existing codebase patterns it found during the reading phase, confirming it understands the conventions before implementing",
+      ],
+      correctAnswer: "An explicit list of what it will implement, what assumptions it is making, questions that would change its approach, and out-of-scope items it noticed — with the engineer confirming each assumption before code is written",
+      rubric: "Correct answer: four-part pre-implementation output with engineer confirmation. The agent must produce: (1) 'I will implement:' — specific changes and files; (2) 'Assumptions I'm making:' — explicit list; (3) 'Questions that would change my approach:' — things engineer must confirm; (4) 'Out-of-scope items I noticed:' — adjacent issues flagged but not implemented. The engineer confirms or corrects each assumption before the agent writes code. This adds ~5 minutes per task and prevents hours of rework from wrong-direction implementations.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m12-q6",
@@ -271,12 +286,17 @@ The difference is not the tools — it's whether the SDLC was redesigned to acco
     {
       id: "m12-q7",
       type: "edge_case",
-      text: "A client implements every SDLC redesign you recommended: automated pre-review, PR size limits, task specification gates, scope confirmation protocol, and distributed review routing. Six weeks later, they report that engineers feel like the new process is 'too slow' and is eliminating the productivity gains from agents. Three engineers have started bypassing the process by creating small, unrelated PRs that individually pass the size check but together represent a large, unreviewed scope. How do you diagnose this situation and respond?",
-      rubric:
-        "Strong answer: the 'too slow' complaint and the bypassing behavior together tell you two things: (1) the process overhead was miscalibrated — some steps may have been too burdensome relative to their value; (2) the PR size limit is being gamed, which means the enforcement mechanism wasn't smart enough; diagnosis: which steps specifically feel slow? Time the task specification gate and scope confirmation — if these are taking 20+ minutes each, they may be over-engineered; check whether automated pre-review is actually reducing human review time or just adding latency; for the gaming behavior: the problem is that engineers found a technically-compliant workaround — fix by measuring related-PR clustering (PRs from the same engineer on the same feature filed within 24 hours) rather than individual PR size; the response is not to eliminate the process but to calibrate it — involve the engineers in identifying which steps add value and which feel like overhead without benefit; the engineers gaming the system are telling you something important about where the friction is; the goal was never to add process, it was to prevent SDLC failures — check whether the failures have actually decreased. Strong answers also note that engineering around a process constraint is information, not just misbehavior. Weak answer suggests enforcing the rules more strictly.",
-      maxScore: 20,
-      placeholder:
-        "Diagnose what the gaming behavior reveals, how you calibrate the process, and how you address the specific bypass...",
+      text: "Engineers are bypassing a PR size limit by splitting a large feature into multiple small, nominally-unrelated PRs that each individually pass the size check but together represent a large unreviewed scope. What does this behavior reveal, and what is the correct response?",
+      options: [
+        "The engineers are being unprofessional and should be told that circumventing process controls undermines the team's safety standards",
+        "The PR size limit should be increased since it was clearly set too low for the team's actual workflow needs",
+        "The gaming behavior is information: it reveals either that the process was miscalibrated (too burdensome) or the enforcement mechanism wasn't smart enough. Fix by measuring related-PR clustering and involve engineers in identifying which steps add value vs feel like overhead without benefit",
+        "Remove the PR size limit entirely since it is creating perverse incentives, and rely on code review quality alone to catch scope problems",
+      ],
+      correctAnswer: "The gaming behavior is information: it reveals either that the process was miscalibrated (too burdensome) or the enforcement mechanism wasn't smart enough. Fix by measuring related-PR clustering and involve engineers in identifying which steps add value vs feel like overhead without benefit",
+      rubric: "Correct answer: gaming behavior is diagnostic information, not just misbehavior. Engineers found a technically-compliant workaround — this tells you the enforcement mechanism wasn't smart enough (individual PR size vs related-PR clustering) and/or that the process overhead was miscalibrated. Fix the enforcement by tracking PRs from the same engineer on the same feature filed within 24 hours, not individual PR size. Involve engineers in identifying which steps feel like overhead — the goal was preventing SDLC failures, not adding process.",
+      maxScore: 10,
+      placeholder: "",
     },
     {
       id: "m12-q8",
